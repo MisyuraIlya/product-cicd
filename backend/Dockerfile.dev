@@ -31,8 +31,8 @@ RUN composer install --no-scripts --no-autoloader
 RUN composer dump-autoload --optimize
 
 # Copy initialization script
-COPY init.sh /usr/local/bin/init.sh
-RUN chmod +x /usr/local/bin/init.sh
+COPY initDev.sh /usr/local/bin/initDev.sh
+RUN chmod +x /usr/local/bin/initDev.sh
 
 # Run Symfony commands ignoring errors and automatically answering yes to prompts
-CMD ["/usr/local/bin/init.sh"]
+CMD ["/usr/local/bin/initDev.sh"]

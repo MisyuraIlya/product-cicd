@@ -25,7 +25,7 @@ services:
   php81-service:
     build:
       context: ./backend
-      dockerfile: ./Dockerfile
+      dockerfile: ./Dockerfile.prod
     container_name: php81-container-template-product
     ports:
       - "9000:9000"
