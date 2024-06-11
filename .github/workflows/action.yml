@@ -26,5 +26,5 @@ jobs:
 
       - name: Build and push frontend image
         run: |
-          docker build -f backend/Dockerfile.prod -t spetsar/front-template front
+          docker build -f front/Dockerfile.prod -t spetsar/front-template front
           docker push spetsar/front-template
