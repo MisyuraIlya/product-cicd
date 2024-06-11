@@ -19,12 +19,12 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Build and push php image
+      - name: Build Backend
         run: |
-          docker build -t spetsar/php-image ./php
-          docker push spetsar/php-image
+          docker build -t spetsar/backend-template ./backend
+          docker push spetsar/backend-template
 
-      - name: Build and push react frontend image
-        run: |
-          docker build -t spetsar/react-frontend-image ./front
-          docker push spetsar/react-frontend-image
+      # - name: Build and push react frontend image
+      #   run: |
+      #     docker build -t spetsar/react-frontend-image ./front
+      #     docker push spetsar/react-frontend-image
