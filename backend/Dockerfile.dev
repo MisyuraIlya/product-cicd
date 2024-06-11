@@ -1,5 +1,5 @@
-# Use the PHP 8.1 FPM base image
-FROM php:8.1-fpm
+# Use the PHP 8.2 FPM base image
+FROM php:8.2-fpm
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y zlib1g-dev g++ git libicu-dev zip libzip-dev zip \
@@ -15,6 +15,9 @@ RUN echo "memory_limit=3G" > /usr/local/etc/php/conf.d/memory-limit.ini
 # Set the working directory
 WORKDIR /var/www/project
 
+# Set the COMPOSER_ALLOW_SUPERUSER environment variable
+ENV COMPOSER_ALLOW_SUPERUSER=1
+
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
@@ -24,11 +27,18 @@ RUN curl -sS https://get.symfony.com/cli/installer | bash
 # Copy application files
 COPY . .
 
+# Ensure composer.lock file is updated
+RUN composer update
+
 # Install dependencies using Composer
 RUN composer install --no-scripts --no-autoloader
 
 # Generate autoload files
 RUN composer dump-autoload --optimize
+
+RUN composer require symfony/runtime
+
+RUN composer require symfony/maker-bundle --dev
 
 # Copy initialization script
 COPY initDev.sh /usr/local/bin/initDev.sh

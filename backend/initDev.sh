@@ -15,5 +15,7 @@ composer dump-env dev
 
 php bin/console cache:clear
 
+composer install --no-dev --optimize-autoloader
+
 # Start PHP-FPM in the foreground
 php-fpm

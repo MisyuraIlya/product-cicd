@@ -33,6 +33,9 @@ services:
       - ./backend:/var/www/project
     networks:
       - nginx-php81-mysql8-node
+    depends_on:
+      mysql8-service:
+        condition: service_healthy
 
   # mysql
   mysql8-service:
@@ -49,6 +52,11 @@ services:
       MYSQL_PASSWORD: secret
     networks:
       - nginx-php81-mysql8-node
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
 
   # phpMyAdmin
   phpmyadmin-service:
