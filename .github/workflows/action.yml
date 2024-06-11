@@ -24,7 +24,7 @@ jobs:
           docker build -f backend/Dockerfile.prod -t spetsar/backend-template backend
           docker push spetsar/backend-template
 
-      # - name: Build and push react frontend image
-      #   run: |
-      #     docker build -t spetsar/react-frontend-image ./front
-      #     docker push spetsar/react-frontend-image
+      - name: Build and push frontend image
+        run: |
+          docker build -f backend/Dockerfile.prod -t spetsar/front-template front
+          docker push spetsar/front-template
