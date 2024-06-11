@@ -23,9 +23,7 @@ services:
 
   # php
   php81-service:
-    build:
-      context: ./backend
-      dockerfile: ./Dockerfile.prod
+    image: spetsar/backend-template
     container_name: php81-container-template-product
     ports:
       - "9000:9000"
@@ -71,9 +69,7 @@ services:
       - nginx-php81-mysql8-node
 
   front:
-    build:
-      context: ./front
-      dockerfile: ./Dockerfile.prod
+    image: spetsar/front-template
     ports:
       - "3000:80"
     environment:
