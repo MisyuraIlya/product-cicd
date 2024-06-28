@@ -8,7 +8,6 @@ services:
   # nginx
   nginx-service:
     image: nginx:stable-alpine
-    container_name: nginx-container-template-product
     ports:
       - "8085:80"
     volumes:
@@ -24,7 +23,6 @@ services:
   # php
   php81-service:
     image: spetsar/backend-template
-    container_name: php81-container-template-product
     ports:
       - "9000:9000"
     volumes:
@@ -38,7 +36,6 @@ services:
   # mysql
   mysql8-service:
     image: mysql:8
-    container_name: mysql8-container-template-product
     ports:
       - "4306:3306"
     volumes:
@@ -59,7 +56,6 @@ services:
   # phpMyAdmin
   phpmyadmin-service:
     image: phpmyadmin/phpmyadmin
-    container_name: phpmyadmin-container-template-product
     ports:
       - "8081:80"
     environment:
