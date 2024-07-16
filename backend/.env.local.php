@@ -5,7 +5,7 @@
 return array (
   'APP_ENV' => 'dev',
   'APP_SECRET' => '90459d5cc76b79a85bb30a81236feefa',
-  'DATABASE_URL' => 'mysql://root:secret@mysql8-service:3306/app?serverVersion=15&charset=utf8',
+  'DATABASE_URL' => 'mysql://mrkelimdb:uX9tM8gU8r@localhost:3306/mrkelimdb?serverVersion=15&charset=utf8',
   'CORS_ALLOW_ORIGIN' => '^.*$',
   'JWT_SECRET_KEY' => '%kernel.project_dir%/config/jwt/private.pem',
   'JWT_PUBLIC_KEY' => '%kernel.project_dir%/config/jwt/public.pem',

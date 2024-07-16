@@ -8,7 +8,6 @@ use ApiPlatform\Metadata\Get;
 use App\Entity\User;
 use App\State\HovotProvider;
 use ApiPlatform\Metadata\Link;
-use PhpOffice\PhpSpreadsheet\Shared\Date;
 
 #[ApiResource(
     uriTemplate: '/Hovot/{dateFrom}/{dateTo}/{userExtId}',
