@@ -11,7 +11,7 @@ class StockChecker
         private readonly ErpManager $erpManager
     )
     {
-        $this->isOnlinePrice = $_ENV['IS_USED_STOCK'] === "true";
+        $this->isOnlinePrice = $_ENV['IS_WITH_STOCK'] === "true";
     }
     public function GetStockOnline(Paginator $paginator)
     {

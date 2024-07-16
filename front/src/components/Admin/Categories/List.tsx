@@ -85,18 +85,10 @@ const List = () => {
                 <TableHead>
                   <TableRow>
                     <TableCell></TableCell>
-                    <TableCell>
-                      <Typography>תמונה</Typography>
-                    </TableCell>
-                    <TableCell>
-                      <Typography>מזהה</Typography>
-                    </TableCell>
-                    <TableCell>
-                      <Typography>שם קטגוריה</Typography>
-                    </TableCell>
-                    <TableCell>
-                      <Typography>סטאטוס</Typography>
-                    </TableCell>
+                    <TableCell>תמונה</TableCell>
+                    <TableCell>מזהה</TableCell>
+                    <TableCell>שם קטגוריה</TableCell>
+                    <TableCell>סטאטוס</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>

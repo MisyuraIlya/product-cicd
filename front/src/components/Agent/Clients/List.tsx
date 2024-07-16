@@ -48,86 +48,16 @@ const List = () => {
                 className="col-cont sticky-col"
                 sx={{ minWidth: '80px' }}
               >
-                <Typography
-                  variant="body2"
-                  color={themeColors.primary}
-                  fontWeight={800}
-                >
-                  שם לקוח
-                </Typography>
+                שם לקוח
               </TableCell>
-              <TableCell className="col-cont sticky-col">
-                <Typography
-                  variant="body2"
-                  color={themeColors.primary}
-                  fontWeight={800}
-                >
-                  מס לקוח
-                </Typography>
-              </TableCell>
-              <TableCell className="col-cont sticky-col">
-                <Typography
-                  variant="body2"
-                  color={themeColors.primary}
-                  fontWeight={800}
-                >
-                  טלפון
-                </Typography>
-              </TableCell>
-              <TableCell className="col-cont">
-                <Typography
-                  variant="body2"
-                  color={themeColors.primary}
-                  fontWeight={800}
-                >
-                  ח.פ/ע.מ
-                </Typography>
-              </TableCell>
-              <TableCell className="col-cont">
-                <Typography
-                  variant="body2"
-                  color={themeColors.primary}
-                  fontWeight={800}
-                >
-                  אובליגו
-                </Typography>
-              </TableCell>
-              <TableCell className="col-cont">
-                <Typography
-                  variant="body2"
-                  color={themeColors.primary}
-                  fontWeight={800}
-                >
-                  יתרת חוב
-                </Typography>
-              </TableCell>
-              <TableCell className="col-cont">
-                <Typography
-                  variant="body2"
-                  color={themeColors.primary}
-                  fontWeight={800}
-                >
-                  כתובת
-                </Typography>
-              </TableCell>
-              <TableCell className="col-cont">
-                <Typography
-                  variant="body2"
-                  color={themeColors.primary}
-                  fontWeight={800}
-                >
-                  עיר
-                </Typography>
-              </TableCell>
-              <TableCell className="col-cont">
-                <Typography
-                  variant="body2"
-                  color={themeColors.primary}
-                  fontWeight={800}
-                >
-                  סטאטוס
-                </Typography>
-              </TableCell>
+              <TableCell className="col-cont sticky-col">מס לקוח</TableCell>
+              <TableCell className="col-cont sticky-col">טלפון</TableCell>
+              <TableCell className="col-cont">ח.פ/ע.מ</TableCell>
+              <TableCell className="col-cont">אובליגו</TableCell>
+              <TableCell className="col-cont">יתרת חוב</TableCell>
+              <TableCell className="col-cont">כתובת</TableCell>
+              <TableCell className="col-cont">עיר</TableCell>
+              <TableCell className="col-cont">סטאטוס</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>

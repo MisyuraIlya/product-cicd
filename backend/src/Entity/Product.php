@@ -139,7 +139,7 @@ class Product
     private ?int $basePrice = null;
 
     #[Groups(['product:read','category:read','restoreCart:read'])]
-    #[ORM\Column(nullable: true)]
+    #[ORM\Column(nullable: true, options: ["comment" => "the price after online fetching"])]
     private ?float $finalPrice = 0;
 
     #[Groups(['product:read','category:read','restoreCart:read'])]
@@ -172,6 +172,38 @@ class Product
     #[Groups(['product:read','category:read','product:write','historyDetailed:read','history:read','restoreCart:read'])]
     #[ORM\Column]
     private ?bool $isSpecial = null;
+
+    #[Groups(['product:read','category:read','product:write','restoreCart:read','history:read'])]
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $length = null;
+
+    #[Groups(['product:read','category:read','product:write','restoreCart:read','history:read'])]
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $width = null;
+
+    #[Groups(['product:read','category:read','product:write','restoreCart:read','history:read'])]
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $height = null;
+
+    #[Groups(['product:read','category:read','product:write','restoreCart:read','history:read'])]
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $color = null;
+
+    #[Groups(['product:read','category:read','product:write','restoreCart:read','history:read'])]
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $volume = null;
+
+    #[Groups(['product:read','category:read','product:write','restoreCart:read','history:read'])]
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $diameter = null;
+
+    #[Groups(['product:read','category:read','product:write','restoreCart:read','history:read'])]
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $weight = null;
+
+    #[ORM\Column(nullable: true, options: ["comment" => "Minimum price for agent only (calucaltion)"])]
+    #[Groups(['product:read','category:read','restoreCart:read'])]
+    private ?float $minimumPrice = null;
 
     public function __construct()
     {
@@ -560,6 +592,102 @@ class Product
     public function setIsSpecial(bool $isSpecial): static
     {
         $this->isSpecial = $isSpecial;
+
+        return $this;
+    }
+
+    public function getLength(): ?string
+    {
+        return $this->length;
+    }
+
+    public function setLength(?string $length): static
+    {
+        $this->length = $length;
+
+        return $this;
+    }
+
+    public function getWidth(): ?string
+    {
+        return $this->width;
+    }
+
+    public function setWidth(?string $width): static
+    {
+        $this->width = $width;
+
+        return $this;
+    }
+
+    public function getHeight(): ?string
+    {
+        return $this->height;
+    }
+
+    public function setHeight(?string $height): static
+    {
+        $this->height = $height;
+
+        return $this;
+    }
+
+    public function getColor(): ?string
+    {
+        return $this->color;
+    }
+
+    public function setColor(?string $color): static
+    {
+        $this->color = $color;
+
+        return $this;
+    }
+
+    public function getVolume(): ?string
+    {
+        return $this->volume;
+    }
+
+    public function setVolume(?string $volume): static
+    {
+        $this->volume = $volume;
+
+        return $this;
+    }
+
+    public function getDiameter(): ?string
+    {
+        return $this->diameter;
+    }
+
+    public function setDiameter(?string $diameter): static
+    {
+        $this->diameter = $diameter;
+
+        return $this;
+    }
+
+    public function getWeight(): ?string
+    {
+        return $this->weight;
+    }
+
+    public function setWeight(?string $weight): static
+    {
+        $this->weight = $weight;
+
+        return $this;
+    }
+
+    public function getMinimumPrice(): ?float
+    {
+        return $this->minimumPrice;
+    }
+
+    public function setMinimumPrice(?float $minimumPrice): static
+    {
+        $this->minimumPrice = $minimumPrice;
 
         return $this;
     }

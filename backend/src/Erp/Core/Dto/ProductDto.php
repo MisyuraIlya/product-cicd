@@ -17,6 +17,7 @@ class ProductDto
     public ?string $categoryDescription;
     public bool $status;
     public ?string $baseprice;
+    public ?float $minimumPrice;
     public bool $intevntory_managed;
     public ?string $parent;
     public ?int $packQuantity;

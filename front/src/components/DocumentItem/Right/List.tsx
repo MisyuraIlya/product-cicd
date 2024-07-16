@@ -39,56 +39,16 @@ const List = () => {
             sx={{ margin: '5px 20px' }}
           />
         ))}
-      <TableContainer component={Paper} elevation={0}>
+      <TableContainer component={Paper} elevation={0} sx={{ height: '100%' }}>
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>
-                <Typography
-                  variant="body2"
-                  color={themeColors.primary}
-                  fontWeight={800}
-                >
-                  מוצר
-                </Typography>
-              </TableCell>
+              <TableCell>מוצר</TableCell>
               <TableCell sx={{ minWidth: '150px' }}></TableCell>
-              <TableCell>
-                <Typography
-                  variant="body2"
-                  color={themeColors.primary}
-                  fontWeight={800}
-                >
-                  כמות
-                </Typography>
-              </TableCell>
-              <TableCell>
-                <Typography
-                  variant="body2"
-                  color={themeColors.primary}
-                  fontWeight={800}
-                >
-                  מחיר יח'
-                </Typography>
-              </TableCell>
-              <TableCell>
-                <Typography
-                  variant="body2"
-                  color={themeColors.primary}
-                  fontWeight={800}
-                >
-                  הנחה
-                </Typography>
-              </TableCell>
-              <TableCell>
-                <Typography
-                  variant="body2"
-                  color={themeColors.primary}
-                  fontWeight={800}
-                >
-                  סה״כ
-                </Typography>
-              </TableCell>
+              <TableCell>כמות</TableCell>
+              <TableCell>מחיר יח'</TableCell>
+              <TableCell>הנחה</TableCell>
+              <TableCell>סה״כ</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -99,7 +59,7 @@ const List = () => {
               >
                 <TableCell>
                   <img
-                    width={100}
+                    style={{ height: '70px' }}
                     src={
                       element?.product?.defaultImagePath
                         ? process.env.REACT_APP_MEDIA +
@@ -118,14 +78,14 @@ const List = () => {
                   <Typography>{element?.quantity}</Typography>
                 </TableCell>
                 <TableCell>
-                  <Typography>{element?.priceByOne}</Typography>
+                  <Typography>₪{element?.priceByOne}</Typography>
                 </TableCell>
                 <TableCell>
                   <Typography>{element?.discount?.toFixed(1) + '%'}</Typography>
                 </TableCell>
                 <TableCell>
-                  <Typography>
-                    {numberWithCommas(element?.total?.toFixed(1))}
+                  <Typography fontWeight={700}>
+                    ₪{numberWithCommas(element?.total?.toFixed(1))}
                   </Typography>
                 </TableCell>
               </TableRow>

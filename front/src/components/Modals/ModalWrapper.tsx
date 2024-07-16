@@ -48,13 +48,14 @@ const ModalWrapper: FC<ModalWrapperProps> = ({
               display: 'flex',
               justifyContent: 'space-between',
               marginBottom: '20px',
-              alignItems: 'center',
             }}
           >
             <Box>{component}</Box>
-            <IconButton onClick={() => setActive(false)}>
-              <CloseIcon sx={{ fontSize: '35px', cursor: 'pointer' }} />
-            </IconButton>
+            <Box sx={{ height: '100%' }}>
+              <IconButton onClick={() => setActive(false)}>
+                <CloseIcon sx={{ fontSize: '35px', cursor: 'pointer' }} />
+              </IconButton>
+            </Box>
           </Box>
           {children}
         </Box>

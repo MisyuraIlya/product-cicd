@@ -55,6 +55,11 @@ export const URLS = {
     LABEL: 'ניהול קטלוג',
     ROUTER: '/admin/category-edit/:lvl1/:lvl2',
   },
+  ADMIN_EDIT_HOME: {
+    LINK: '/admin/homeEdit',
+    LABEL: 'ניהול עמוד בית',
+    ROUTER: '/admin/homeEdit',
+  },
   ADMIN_EDIT_PRODUCT: {
     LINK: '/admin/products-edit/0/0',
     LABEL: 'ניהול קטלוג',

@@ -14,8 +14,8 @@ final class OneSignal
         private readonly UserRepository $userRepository,
     )
     {
-        $this->appId = $_ENV['ONESIGNAL_APP_ID'] ;
-        $this->apiKey = $_ENV['ONESIGNAL_API_KEY'] ;
+        $this->appId = $_ENV['ONE_SIGNAL_APP_ID'] ;
+        $this->apiKey = $_ENV['ONE_SIGNAL_KEY'] ;
     }
 
     public function SendPushAllUser(string $title, string $description, string $imgLink)

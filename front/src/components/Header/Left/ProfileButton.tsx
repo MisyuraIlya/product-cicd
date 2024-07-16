@@ -7,17 +7,21 @@ import MenuProfile from './MenuProfile'
 import { useCart } from '../../../store/cart.store'
 
 const ProfileButton = () => {
-  const { user } = useAuth()
+  const { user, setAction } = useAuth()
   const { setOpenAuthModal } = useModals()
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const { selectedMode } = useCart()
   const open = Boolean(anchorEl)
 
+  const handleOpenAuth = () => {
+    setAction('login')
+    setOpenAuthModal(true)
+  }
   return (
     <Box>
       <IconButton
         onClick={(event) => {
-          user ? setAnchorEl(event.currentTarget) : setOpenAuthModal(true)
+          user ? setAnchorEl(event.currentTarget) : handleOpenAuth()
         }}
         sx={{
           height: '50px',

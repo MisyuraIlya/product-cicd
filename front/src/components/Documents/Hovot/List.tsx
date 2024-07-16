@@ -44,71 +44,15 @@ const List = () => {
           <Table className="lines-sub-cont">
             <TableHead>
               <TableRow className="heading">
+                <TableCell className="col-cont sticky-col">שורה</TableCell>
                 <TableCell className="col-cont sticky-col">
-                  <Typography
-                    variant="body2"
-                    color={themeColors.primary}
-                    fontWeight={800}
-                    sx={{ minWidth: '80px' }}
-                  >
-                    שורה
-                  </Typography>
+                  תאריך חשבונית
                 </TableCell>
-                <TableCell className="col-cont sticky-col">
-                  <Typography
-                    variant="body2"
-                    color={themeColors.primary}
-                    fontWeight={800}
-                  >
-                    תאריך חשבונית
-                  </Typography>
-                </TableCell>
-                <TableCell className="col-cont">
-                  <Typography
-                    variant="body2"
-                    color={themeColors.primary}
-                    fontWeight={800}
-                  >
-                    חשבונית
-                  </Typography>
-                </TableCell>
-                <TableCell className="col-cont">
-                  <Typography
-                    variant="body2"
-                    color={themeColors.primary}
-                    fontWeight={800}
-                    sx={{ minWidth: '80px' }}
-                  >
-                    סכום חשבונית
-                  </Typography>
-                </TableCell>
-                <TableCell className="col-cont">
-                  <Typography
-                    variant="body2"
-                    color={themeColors.primary}
-                    fontWeight={800}
-                  >
-                    חוב מצטבר
-                  </Typography>
-                </TableCell>
-                <TableCell className="col-cont">
-                  <Typography
-                    variant="body2"
-                    color={themeColors.primary}
-                    fontWeight={800}
-                  >
-                    תאריך תשלום
-                  </Typography>
-                </TableCell>
-                <TableCell className="col-cont">
-                  <Typography
-                    variant="body2"
-                    color={themeColors.primary}
-                    fontWeight={800}
-                  >
-                    ימי פיגור
-                  </Typography>
-                </TableCell>
+                <TableCell className="col-cont">חשבונית</TableCell>
+                <TableCell className="col-cont">סכום חשבונית</TableCell>
+                <TableCell className="col-cont">חוב מצטבר</TableCell>
+                <TableCell className="col-cont">תאריך תשלום</TableCell>
+                <TableCell className="col-cont">ימי פיגור</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>

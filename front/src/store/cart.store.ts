@@ -7,7 +7,7 @@ import { persist, createJSONStorage, PersistOptions } from 'zustand/middleware'
 
 interface useCartState {
   loading: boolean
-
+  setLoading: (loading: boolean) => void
   // ========== HANDLE CART ==========
   cart: ICart[]
   setCart: (data: ICart[]) => void
@@ -34,8 +34,9 @@ interface useCartState {
   sendOrder: (
     user: IUser,
     agent?: IUser | null,
-    discountUser?: number
-  ) => Promise<void>
+    discountUser?: number,
+    isSendToErp?: boolean
+  ) => Promise<SendOrderResponse>
   saveDraft: (user: IUser) => void
   // ========== MAIN FUNCTIONS ==========
 }
@@ -44,6 +45,7 @@ export const useCart = create(
   persist(
     (set, get) => ({
       loading: false,
+      setLoading: (loading) => set({ loading }),
       // ========== HANDLE CART ==========
       cart: [],
       setCart: (data: ICart[]) => {
@@ -61,6 +63,8 @@ export const useCart = create(
       },
 
       addToCart: (product: IProduct) => {
+        console.log('product', product)
+
         const { cart } = get()
         const cartProduct = {
           sku: product.sku,
@@ -121,6 +125,16 @@ export const useCart = create(
 
       // AGENT
       changePrice: (cartItem: ICart, value: number) => {
+        if (
+          cartItem.product.minimumPrice &&
+          cartItem.product.finalPrice > cartItem.product.minimumPrice
+        ) {
+          if (cartItem.product.minimumPrice > value) {
+            onErrorAlert('מחיר נמוך מדיי', '')
+            return false
+          }
+        }
+
         const updatedProduct = { ...cartItem.product, finalPrice: value }
         const discountedPrice = value - (value * cartItem.discount) / 100
         const updatedCartItem = {
@@ -142,8 +156,21 @@ export const useCart = create(
         const discountedPrice =
           updatedCartItem.product.finalPrice -
           (updatedCartItem.product.finalPrice * clampedDiscount) / 100
-        updatedCartItem.price = discountedPrice
-        updatedCartItem.total = updatedCartItem.quantity * discountedPrice
+        updatedCartItem.price = +discountedPrice.toFixed(2)
+        updatedCartItem.total = +(
+          updatedCartItem.quantity * discountedPrice
+        ).toFixed(2)
+
+        if (
+          cartItem.product.minimumPrice &&
+          cartItem.product.finalPrice > cartItem.product.minimumPrice
+        ) {
+          if (cartItem.product.minimumPrice > updatedCartItem.price) {
+            onErrorAlert('מחיר ליחידה נמוך מדיי', '')
+            return false
+          }
+        }
+
         set((state) => ({
           cart: state.cart.map((item) =>
             item === cartItem ? updatedCartItem : item
@@ -152,12 +179,22 @@ export const useCart = create(
       },
 
       changeSum: (cartItem: ICart, value: number) => {
+        if (
+          cartItem.product.minimumPrice &&
+          cartItem.product.finalPrice > cartItem.product.minimumPrice
+        ) {
+          if (cartItem.product.minimumPrice > value) {
+            onErrorAlert('מחיר נמוך מדיי', '')
+            return false
+          }
+        }
+
         const updatedCartItem = { ...cartItem, price: value }
         const discount =
           ((cartItem.product.finalPrice - value) /
             cartItem.product.finalPrice) *
           100
-        updatedCartItem.discount = discount
+        updatedCartItem.discount = +discount.toFixed(2)
         updatedCartItem.total = updatedCartItem.quantity * value
 
         set((state) => ({
@@ -195,33 +232,21 @@ export const useCart = create(
       sendOrder: async (
         user: IUser,
         agent?: IUser | null,
-        discountUser?: number
+        discountUser?: number,
+        isSendToErp?: boolean
       ) => {
-        try {
-          set({ loading: true })
-          const response = await CartServices.CreateOrder(
-            get().cart,
-            get().comment,
-            user,
-            get().selectedMode.value,
-            settings.deliveryPrice,
-            discountUser,
-            agent
-          )
-          if (response?.data?.orderNumber) {
-            onSuccessAlert(
-              'הזמנה בוצה בהצלחה!',
-              `מספר הזמנה ${response?.data?.orderNumber}`
-            )
-            set({ cart: [], comment: '' })
-          } else {
-            onErrorAlert('הזמנה לא בוצעה', response?.message)
-          }
-        } catch (e) {
-          console.log('error', e)
-        } finally {
-          set({ loading: false })
-        }
+        const response = await CartServices.CreateOrder(
+          get().cart,
+          get().comment,
+          user,
+          get().selectedMode.value,
+          settings.deliveryPrice,
+          discountUser,
+          agent,
+          isSendToErp
+        )
+
+        return response
       },
 
       saveDraft: async (user: IUser) => {

@@ -168,7 +168,11 @@ const Card: FC<ClientItemProps> = ({ element, index }) => {
         </TableCell>
         {isAgent && (
           <TableCell>
-            <Switch checked={isMaster} onChange={() => handleMaster()} />
+            <Switch
+              checked={isMaster}
+              onChange={() => handleMaster()}
+              color="success"
+            />
           </TableCell>
         )}
       </TableRow>

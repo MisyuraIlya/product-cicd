@@ -9,6 +9,7 @@ use App\State\DocumentsProvider;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\ApiProperty;
 use phpDocumentor\Reflection\Types\String_;
+use PhpOffice\PhpSpreadsheet\Shared\Date;
 use ApiPlatform\Metadata\Link;
 
 #[ApiResource(
@@ -18,8 +19,8 @@ use ApiPlatform\Metadata\Link;
             uriTemplate: '/documents/{documentType}/{dateFrom}/{dateTo}',
             uriVariables: [
                 'documentType' => new Link(fromClass: DocumentsType::class),
-                'dateFrom' => new Link(fromClass: \DateTime::class),
-                'dateTo' => new Link(fromClass: \DateTime::class),
+                'dateFrom' => new Link(fromClass: Date::class),
+                'dateTo' => new Link(fromClass: Date::class),
             ],
             provider: DocumentsProvider::class,
         ),

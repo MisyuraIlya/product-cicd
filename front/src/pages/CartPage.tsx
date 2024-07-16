@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Container, Grid } from '@mui/material'
+import { Box, Container, Divider, Grid } from '@mui/material'
 import Cart from '../components/Cart'
 import Utils from '../utils'
 
@@ -34,9 +34,19 @@ const CartPage = () => {
           width: '100%',
           height: 'auto',
           minHeight: '100vh',
-          boxShadow: '2px 3px 9px 2px #e0e0e0;',
         }}
       >
+        <Divider
+          orientation="vertical"
+          flexItem
+          sx={{
+            position: 'fixed',
+            height: '100vh',
+            width: '2px',
+            top: 0,
+            zIndex: 9,
+          }}
+        />
         <Box sx={{ position: 'sticky', top: '150px' }}>
           <Cart.Left.Summary />
         </Box>

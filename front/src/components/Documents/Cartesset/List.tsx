@@ -44,80 +44,19 @@ const List = () => {
           <Table className="lines-sub-cont">
             <TableHead>
               <TableRow className="heading">
-                <TableCell className="col-cont sticky-col">
-                  <Typography
-                    variant="body2"
-                    color={themeColors.primary}
-                    fontWeight={800}
-                    sx={{ minWidth: '80px' }}
-                  >
-                    ת. למאזן
-                  </Typography>
+                <TableCell
+                  className="col-cont sticky-col"
+                  sx={{ minWidth: '80px' }}
+                >
+                  ת. למאזן
                 </TableCell>
-                <TableCell className="col-cont sticky-col">
-                  <Typography
-                    variant="body2"
-                    color={themeColors.primary}
-                    fontWeight={800}
-                  >
-                    תנועה
-                  </Typography>
-                </TableCell>
-                <TableCell className="col-cont">
-                  <Typography
-                    variant="body2"
-                    color={themeColors.primary}
-                    fontWeight={800}
-                  >
-                    ת.אסמכתא
-                  </Typography>
-                </TableCell>
-                <TableCell className="col-cont">
-                  <Typography
-                    variant="body2"
-                    color={themeColors.primary}
-                    fontWeight={800}
-                    sx={{ minWidth: '80px' }}
-                  >
-                    ת.ערך
-                  </Typography>
-                </TableCell>
-                <TableCell className="col-cont">
-                  <Typography
-                    variant="body2"
-                    color={themeColors.primary}
-                    fontWeight={800}
-                  >
-                    אסמכתא
-                  </Typography>
-                </TableCell>
-                <TableCell className="col-cont">
-                  <Typography
-                    variant="body2"
-                    color={themeColors.primary}
-                    fontWeight={800}
-                  >
-                    פרטים
-                  </Typography>
-                </TableCell>
-                <TableCell className="col-cont">
-                  <Typography
-                    variant="body2"
-                    color={themeColors.primary}
-                    fontWeight={800}
-                  >
-                    חובה/זכות
-                  </Typography>
-                </TableCell>
-                <TableCell className="col-cont">
-                  <Typography
-                    variant="body2"
-                    color={themeColors.primary}
-                    fontWeight={800}
-                  >
-                    יתרה
-                  </Typography>
-                </TableCell>
+                <TableCell className="col-cont sticky-col">תנועה</TableCell>
+                <TableCell className="col-cont">ת.אסמכתא</TableCell>
+                <TableCell className="col-cont">ת.ערך</TableCell>
+                <TableCell className="col-cont">אסמכתא</TableCell>
+                <TableCell className="col-cont">פרטים</TableCell>
+                <TableCell className="col-cont">חובה/זכות</TableCell>
+                <TableCell className="col-cont">יתרה</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>

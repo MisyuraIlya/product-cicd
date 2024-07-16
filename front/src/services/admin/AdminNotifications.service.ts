@@ -1,8 +1,5 @@
 import axios from 'axios'
 
-const URL = 'https://digitrade.host/helpers/onesignal/src/index.php'
-const classPoint = 'OneSignal'
-
 interface NotificationsServicesResponse {
   status: 'sucsses' | 'error'
   message: string

@@ -11,6 +11,7 @@ import {
   ExcelGeneratorICartesset,
   ExcelGeneratorIHovot,
 } from '../../../helpers/ExcelGenerator'
+import { themeColors } from '../../../styles/mui'
 
 const Filter = () => {
   const { dateFrom, dateTo } = useParams()
@@ -96,7 +97,9 @@ const Filter = () => {
         }}
       >
         {data && data?.total > 0 && (
-          <Typography>סה"כ חוב: ₪{data?.total}</Typography>
+          <Typography variant="subtitle2" sx={{ color: themeColors.asphalt }}>
+            סה"כ חוב: ₪{data?.total}
+          </Typography>
         )}
 
         {data && (

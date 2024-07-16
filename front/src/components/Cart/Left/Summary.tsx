@@ -17,13 +17,16 @@ import { useAuth } from '../../../store/auth.store'
 import CartServices from '../../../services/cart.services'
 import PriceCalculator from '../../../helpers/PriceClass'
 import hooks from '../../../hooks'
+import SendIcon from '@mui/icons-material/Send'
+import { onErrorAlert, onSuccessAlert } from '../../../utils/MySweetAlert'
 
 const Summary = () => {
   const { user, agent } = useAuth()
   const [loading, setLoading] = useState(false)
   const [tax, setTax] = useState(0)
   const { mutate } = hooks.useDataNotificationUser()
-  const { selectedMode, cart, comment, setComment, sendOrder } = useCart()
+  const { selectedMode, cart, comment, setComment, sendOrder, setCart } =
+    useCart()
 
   const { openPopUpPay, setOpenPopUpPay } = useModals()
 
@@ -31,11 +34,21 @@ const Summary = () => {
     setOpenPopUpPay(true)
   }
 
-  const handleSendOrder = () => {
+  const handleSendOrder = async () => {
     try {
       setLoading(true)
       if (user) {
-        sendOrder(user, agent, user.discount ?? 0)
+        const response = await sendOrder(user, agent, user.discount ?? 0, true)
+        if (response?.data.orderNumber) {
+          onSuccessAlert(
+            'הזמנה בוצה בהצלחה!',
+            `מספר הזמנה ${response?.data.orderNumber}`
+          )
+          setCart([])
+          setComment('')
+        } else {
+          onErrorAlert('הזמנה לא בוצעה', response?.message)
+        }
         setTimeout(() => {
           mutate()
         }, 1000)
@@ -65,13 +78,15 @@ const Summary = () => {
     checkCart()
   }, [])
 
-  const priceCalculator = new PriceCalculator(
-    tax,
-    user,
-    cart,
-    settings.deliveryPrice,
-    settings.minimumPrice
-  )
+  const priceCalculator = new PriceCalculator(tax, user, cart)
+
+  const isDisabledButton = () => {
+    if (priceCalculator.getCountFromMinimumPirce() > 0) {
+      return true
+    } else {
+      return false
+    }
+  }
 
   return (
     <Container sx={{ position: 'relative', height: '100%' }}>
@@ -81,58 +96,104 @@ const Summary = () => {
         </Box>
       ) : (
         <Box>
-          <Box sx={{ textAlign: 'center' }}>
-            <Typography variant="h4" fontWeight={400} fontSize={24}>
+          <Box sx={{ textAlign: 'left' }}>
+            <Typography
+              variant="h4"
+              fontWeight={400}
+              fontSize={24}
+              sx={{ paddingTop: '10px' }}
+            >
               {'פרטי מסמך'}
             </Typography>
           </Box>
-          <List>
-            <ListItem sx={{ display: 'flex', justifyContent: 'space-between' }}>
-              <Typography variant="body1" color={themeColors.primary}>
+          <List style={{ paddingTop: '15px' }}>
+            <ListItem
+              sx={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                padding: '5px 0px',
+              }}
+            >
+              <Typography variant="body1" color={themeColors.asphalt}>
                 כמות שורות
               </Typography>
               <Typography variant="body1" color={themeColors.primary}>
                 {cart.length}
               </Typography>
             </ListItem>
-            <ListItem sx={{ display: 'flex', justifyContent: 'space-between' }}>
+            <ListItem
+              sx={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                padding: '5px 0px',
+              }}
+            >
               <Typography
                 variant="body1"
-                color={themeColors.primary}
+                color={themeColors.asphalt}
               >{`סה"כ לפני מע"מ`}</Typography>
               <Typography variant="body1" color={themeColors.primary}>
                 {priceCalculator.getTotalPriceBeforeTax()?.toFixed(2)} ₪
               </Typography>
             </ListItem>
-            <ListItem sx={{ display: 'flex', justifyContent: 'space-between' }}>
+            <ListItem
+              sx={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                padding: '5px 0px',
+              }}
+            >
               <Typography
                 variant="body1"
-                color={themeColors.primary}
+                color={themeColors.asphalt}
               >{`דמי משלוח`}</Typography>
               <Typography variant="body1" color={themeColors.primary}>
                 {settings?.deliveryPrice} ₪
               </Typography>
             </ListItem>
-            <ListItem sx={{ display: 'flex', justifyContent: 'space-between' }}>
+            <ListItem
+              sx={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                padding: '5px 0px',
+              }}
+            >
               <Typography
                 variant="body1"
-                color={themeColors.primary}
+                color={themeColors.asphalt}
               >{`חייב במע״מ`}</Typography>
               <Typography variant="body1" color={themeColors.primary}>
                 {priceCalculator.getTaxedPrice()?.toFixed(2)} ₪
               </Typography>
             </ListItem>
-            <ListItem sx={{ display: 'flex', justifyContent: 'space-between' }}>
+            <ListItem
+              sx={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                padding: '5px 0px',
+              }}
+            >
               <Typography
                 variant="body1"
-                color={themeColors.primary}
+                color={themeColors.asphalt}
               >{`מחיר אחרי מע״מ`}</Typography>
               <Typography variant="body1" color={themeColors.primary}>
                 {priceCalculator.getTotalPriceAfterTax()?.toFixed(2)} ₪
               </Typography>
             </ListItem>
-            <ListItem sx={{ display: 'flex', justifyContent: 'space-between' }}>
-              <Typography variant="body1" color={themeColors.primary}>
+            <ListItem
+              sx={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                padding: '5px 0px',
+              }}
+            >
+              <Typography
+                variant="subtitle2"
+                color={themeColors.primary}
+                fontWeight={600}
+                fontSize={16}
+              >
                 {'מחיר לתשלום'}
               </Typography>
               <Typography
@@ -140,7 +201,7 @@ const Summary = () => {
                 fontWeight={900}
                 color={themeColors.primary}
               >
-                {priceCalculator.getFinalPrice()?.toFixed(2)} ₪
+                {priceCalculator.getFinalPrice()} ₪
               </Typography>
             </ListItem>
           </List>
@@ -166,7 +227,7 @@ const Summary = () => {
             </Typography>
           ) : null}
 
-          <Box sx={{ margin: '0px', padding: '0 30px' }}>
+          <Box sx={{ margin: '10px 0px' }}>
             <TextField
               label="הערה למשלוח"
               placeholder="הערה למשלוח"
@@ -177,35 +238,28 @@ const Summary = () => {
               onChange={(e) => setComment(e.target.value)}
             />
           </Box>
-          <Box sx={{ justifyContent: 'center', display: 'flex' }}>
+          <Box sx={{ display: 'flex', marginTop: '150px', gap: '50px' }}>
             <Button
               onClick={handleSendOrder}
+              startIcon={<SendIcon />}
+              disabled={isDisabledButton()}
               variant="contained"
-              sx={{
-                borderRadius: '20px',
-                fontSize: '18px',
-                marginTop: '20px',
-                minWidth: '150px',
-                padding: '12px 24px',
-              }}
+              fullWidth
+              sx={{ padding: '12px 26px' }}
             >
-              {'שלח'}
+              שדר הזמנה
             </Button>
-          </Box>
-          <Box sx={{ justifyContent: 'center', display: 'flex' }}>
-            <Button
-              onClick={handlePay}
-              variant="contained"
-              sx={{
-                borderRadius: '20px',
-                fontSize: '18px',
-                marginTop: '20px',
-                minWidth: '150px',
-                padding: '12px 24px',
-              }}
-            >
-              {'שלם'}
-            </Button>
+            {settings.paymentSystem !== 'none' && (
+              <Button
+                onClick={() => handlePay()}
+                disabled={isDisabledButton()}
+                variant="outlined"
+                fullWidth
+                sx={{ padding: '12px 26px' }}
+              >
+                לתשלום
+              </Button>
+            )}
           </Box>
         </Box>
       )}

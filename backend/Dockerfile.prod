@@ -9,8 +9,10 @@ RUN apt-get update && apt-get install -y zlib1g-dev g++ git libicu-dev zip libzi
     && docker-php-ext-configure zip \
     && docker-php-ext-install zip
 
-# Set the PHP memory limit to 3G
-RUN echo "memory_limit=3G" > /usr/local/etc/php/conf.d/memory-limit.ini
+# Set PHP memory and upload size limits
+RUN echo "memory_limit=3G" > /usr/local/etc/php/conf.d/memory-limit.ini \
+    && echo "upload_max_filesize=20M" > /usr/local/etc/php/conf.d/upload-filesize.ini \
+    && echo "post_max_size=25M" >> /usr/local/etc/php/conf.d/upload-filesize.ini
 
 # Set the working directory
 WORKDIR /var/www/project

@@ -29,23 +29,11 @@ const List = () => {
       <Table>
         <TableHead>
           <TableCell></TableCell>
-          <TableCell>
-            <Typography variant="subtitle2">מס'</Typography>
-          </TableCell>
-          <TableCell>
-            <Typography variant="subtitle2">
-              {isUser ? 'לקוח' : 'סוכן'}
-            </Typography>
-          </TableCell>
-          <TableCell>
-            <Typography variant="subtitle2">סטאטוס</Typography>
-          </TableCell>
+          <TableCell>מס'</TableCell>
+          <TableCell>{isUser ? 'לקוח' : 'סוכן'}</TableCell>
+          <TableCell>סטאטוס</TableCell>
           <TableCell></TableCell>
-          {isAgent && (
-            <TableCell>
-              <Typography variant="subtitle2">מאסטר</Typography>
-            </TableCell>
-          )}
+          {isAgent && <TableCell>מאסטר</TableCell>}
         </TableHead>
         {data?.['hydra:member']?.map((element, index) => {
           return (

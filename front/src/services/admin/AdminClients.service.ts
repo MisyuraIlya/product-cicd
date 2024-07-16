@@ -15,19 +15,13 @@ export const AdminClinetsService = {
     let isAgent = false
     if (roleType == 'ROLE_SUPER_AGENT' || roleType === 'ROLE_AGENT')
       isAgent = true
-    let url = `${process.env.REACT_APP_API}/api/users?page=${page}&isAgent=${isAgent}`
+    let url = `${process.env.REACT_APP_API}/api/users?page=${page}&isAgent=${isAgent}&isBlocked=false`
 
     if (search) {
       url += `&search=${search}`
     }
 
     const response = await axios.get(url)
-    return response.data
-  },
-  async getAgents(): Promise<UsersResponse> {
-    const response = await axios.get(
-      `${process.env.REACT_APP_API}/api/users?itemsPerPage=100000&role[]=ROLE_AGENT&role[]=ROLE_SUPER_AGENT`
-    )
     return response.data
   },
 

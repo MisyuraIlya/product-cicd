@@ -75,7 +75,7 @@ class MediaObject
     #[Assert\NotNull(groups: ['media_object_create'])]
     public ?File $file = null;
 
-    #[Groups(['product:read','category:read','productImages:read','notification:read','notificationUser:read'])]
+    #[Groups(['product:read','category:read','productImages:read','notification:read','notificationUser:read','HomeEdit:read','HomeMedia:read'])]
     #[ORM\Column(nullable: true)]
     public ?string $filePath = null;
 
@@ -84,7 +84,7 @@ class MediaObject
     private ?DateTimeImmutable $createdAt = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    #[Groups(['media_object:read', 'media_object_create'])]
+    #[Groups(['media_object:read', 'media_object_create','HomeEdit:read','HomeMedia:read'])]
     private ?string $source = null;
 
     #[ORM\OneToMany(mappedBy: 'mediaObject', targetEntity: ProductImages::class, orphanRemoval: true)]
@@ -96,6 +96,9 @@ class MediaObject
     #[ORM\OneToMany(mappedBy: 'image', targetEntity: Notification::class)]
     private Collection $notifications;
 
+    #[ORM\OneToMany(mappedBy: 'media', targetEntity: HomeMedia::class)]
+    private Collection $homeMedia;
+
 
 
     public function __construct()
@@ -103,6 +106,7 @@ class MediaObject
         $this->productImages = new ArrayCollection();
         $this->categories = new ArrayCollection();
         $this->notifications = new ArrayCollection();
+        $this->homeMedia = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -230,6 +234,36 @@ class MediaObject
             // set the owning side to null (unless already changed)
             if ($notification->getImage() === $this) {
                 $notification->setImage(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, HomeMedia>
+     */
+    public function getHomeMedia(): Collection
+    {
+        return $this->homeMedia;
+    }
+
+    public function addHomeMedium(HomeMedia $homeMedium): static
+    {
+        if (!$this->homeMedia->contains($homeMedium)) {
+            $this->homeMedia->add($homeMedium);
+            $homeMedium->setMedia($this);
+        }
+
+        return $this;
+    }
+
+    public function removeHomeMedium(HomeMedia $homeMedium): static
+    {
+        if ($this->homeMedia->removeElement($homeMedium)) {
+            // set the owning side to null (unless already changed)
+            if ($homeMedium->getMedia() === $this) {
+                $homeMedium->setMedia(null);
             }
         }
 

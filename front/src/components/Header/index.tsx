@@ -8,11 +8,13 @@ import { useAuth } from '../../store/auth.store'
 import { useMobile } from '../../provider/MobileProvider'
 import SearchIcon from '@mui/icons-material/Search'
 import CategoryNavBarMobile from './CategoryNavBarMobile'
+import { useAuthProvider } from '../../provider/AuthProvider'
 
 const AppBarComponent = () => {
   const { isAdmin, isAgent, user } = useAuth()
   const { isMobile } = useMobile()
   const [openSearch, setOpenSearch] = useState(false)
+  const { isAuthrized } = useAuthProvider()
 
   return (
     <AppBar position="sticky" style={{ zIndex: 990 }}>
@@ -35,7 +37,7 @@ const AppBarComponent = () => {
             {isAgent && !isMobile && <Right.AgentMenu />}
           </Grid>
           <Grid item xs={6}>
-            {!isMobile && <Center />}
+            {!isMobile && isAuthrized && <Center />}
           </Grid>
           <Grid
             item

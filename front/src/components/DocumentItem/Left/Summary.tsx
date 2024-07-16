@@ -20,23 +20,22 @@ const Summary = () => {
         margin: isMobile ? '20px 20px 100px 20px' : '0 20px 100px 0',
       }}
     >
-      <Paper
-        elevation={isMobile ? 1 : 0}
+      <Box
         sx={{
           width: '100%',
           padding: '0 40px',
         }}
       >
         <Typography
-          sx={{ paddingTop: '20px', paddingLeft: '15px', textAlign: 'center' }}
+          sx={{ paddingLeft: '15px', textAlign: 'left' }}
           fontWeight={800}
           variant="h5"
         >
           סיכום
         </Typography>
-        <List>
+        <List sx={{ paddingTop: '28px' }}>
           <ListItem sx={{ display: 'flex', justifyContent: 'space-between' }}>
-            <Typography color={themeColors.primary}>כמות שורות</Typography>
+            <Typography color={themeColors.asphalt}>כמות שורות</Typography>
             <Typography color={themeColors.primary}>{itemsLength}</Typography>
           </ListItem>
           <ListItem
@@ -45,13 +44,13 @@ const Summary = () => {
               justifyContent: 'space-between',
             }}
           >
-            <Typography color={themeColors.primary}>סה״כ</Typography>
+            <Typography color={themeColors.asphalt}>סה״כ</Typography>
             <Typography color={themeColors.primary}>
               {totalPriceAfterTax?.toFixed(2) ?? '0'} ₪
             </Typography>
           </ListItem>
           <ListItem sx={{ display: 'flex', justifyContent: 'space-between' }}>
-            <Typography color={themeColors.primary}>הנחה כללית</Typography>
+            <Typography color={themeColors.asphalt}>הנחה כללית</Typography>
             <Typography color={themeColors.primary}>
               {totalPrecent !== undefined ? totalPrecent + '%' : ''}
             </Typography>
@@ -62,13 +61,13 @@ const Summary = () => {
               justifyContent: 'space-between',
             }}
           >
-            <Typography color={themeColors.primary}>אחרי הנחה</Typography>
+            <Typography color={themeColors.asphalt}>אחרי הנחה</Typography>
             <Typography color={themeColors.primary}>
               {totalAfterDiscount?.toFixed(2) ?? '0'} ₪
             </Typography>
           </ListItem>
           <ListItem sx={{ display: 'flex', justifyContent: 'space-between' }}>
-            <Typography color={themeColors.primary}>מע״מ</Typography>
+            <Typography color={themeColors.asphalt}>מע״מ</Typography>
             <Typography color={themeColors.primary}>
               {totalTax?.toFixed(2) ?? '0'} ₪
             </Typography>
@@ -79,13 +78,20 @@ const Summary = () => {
               justifyContent: 'space-between',
             }}
           >
-            <Typography color={themeColors.primary}>לתשלום</Typography>
+            <Typography
+              color={themeColors.primary}
+              variant="subtitle2"
+              fontSize={16}
+              fontWeight={600}
+            >
+              לתשלום
+            </Typography>
             <Typography color={themeColors.primary}>
               {(totalPriceAfterTax + totalTax)?.toFixed(2) ?? '0'} ₪
             </Typography>
           </ListItem>
         </List>
-      </Paper>
+      </Box>
     </Box>
   )
 }

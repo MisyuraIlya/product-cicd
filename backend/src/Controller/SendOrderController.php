@@ -52,6 +52,7 @@ class SendOrderController extends AbstractController
             $deliveryPrice = $data['deliveryPrice'];
             $agent = $data['agent'];
             $type = $data['documentType'];
+            $isSendToErp = $data['isSendToErp'];
 
             $findUser = $this->userRepository->findOneByExIdAndPhone($user['extId'], $user['phone']);
             if(!$findUser) throw new \Exception('לא נמצא לקוח כזה');
@@ -76,9 +77,11 @@ class SendOrderController extends AbstractController
             );
             $this->HandleHistoryDetailed($history, $cart);
 
+            $orderNumber = null;
+            if($isSendToErp){
 //            $orderNumber = $this->erpManager->SendOrder($history);
-            $orderNumber = '123';
-            if($orderNumber){
+            }
+            if($orderNumber && $isSendToErp){
                 $history->setOrderExtId($orderNumber);
                 $history->setOrderStatus(PurchaseStatus::PAID);
                 $this->historyRepository->save($history,true);
@@ -93,7 +96,13 @@ class SendOrderController extends AbstractController
                 }
 
                 $obj = new \stdClass();
+                $obj->historyId = $history->getId();
                 $obj->orderNumber = $orderNumber;
+                return  $this->json((new ApiResponse($obj,''))->OnSuccess());
+            } else if(!$isSendToErp) {
+                $obj = new \stdClass();
+                $obj->historyId = $history->getId();
+                $obj->orderNumber = null;
                 return  $this->json((new ApiResponse($obj,''))->OnSuccess());
             } else {
                 throw new \Exception('הזמנה לא שודרה: לא התקבל מספר הזמנה');
@@ -140,7 +149,7 @@ class SendOrderController extends AbstractController
         $newHistory->setDeliveryDate(null);
         $newHistory->setOrderComment($comment);
         $newHistory->setDeliveryPrice($deliveryPrice);
-        $newHistory->setTotal($this->CalculateTotal($cart));
+        $newHistory->setTotal($this->CalculateTotal($cart,$deliveryPrice));
         $newHistory->setOrderStatus(PurchaseStatus::PENDING);
         $newHistory->setDocumentType($this->getDocumentTypeEnum($type));
         $newHistory->setJson($json);
@@ -172,16 +181,17 @@ class SendOrderController extends AbstractController
         }
     }
 
-    private function CalculateTotal($cart): float
+    private function CalculateTotal($cart,$deliveryPrice): float
     {
         $total = 0;
         foreach($cart as $item){
             $total += $item['total'];
         }
         $taxPrice = ( $this->tax / 100 ) * $total;
-        $final = $total + $taxPrice;
+        $final = $total + $taxPrice + $deliveryPrice;
         $formatted_number = (float) number_format($final, 2);
         return $formatted_number;
+
     }
 
     private function getDocumentTypeEnum(string $type): DocumentsType

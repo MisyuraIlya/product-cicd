@@ -8,7 +8,7 @@ use ApiPlatform\Metadata\Get;
 use App\Entity\User;
 use App\State\CartessetProvider;
 use ApiPlatform\Metadata\Link;
-
+use PhpOffice\PhpSpreadsheet\Shared\Date;
 #[ApiResource(
     uriTemplate: '/cartesset/{dateFrom}/{dateTo}/{userExtId}',
     shortName: 'Cartesset',
@@ -16,8 +16,8 @@ use ApiPlatform\Metadata\Link;
         new Get()
     ],
     uriVariables: [
-        'dateFrom' => new Link(fromClass: \DateTime::class),
-        'dateTo' => new Link(fromClass: \DateTime::class),
+        'dateFrom' => new Link(fromClass: Date::class),
+        'dateTo' => new Link(fromClass: Date::class),
         'userExtId' => new Link(fromClass: User::class),
     ],
     provider: CartessetProvider::class

@@ -37,6 +37,7 @@ const ProductList: FC<ProductListProps> = ({
         height: '300px',
         overflow: 'auto',
         position: 'absolute',
+        padding: '40px 0px',
         width: '100%',
       }}
     >

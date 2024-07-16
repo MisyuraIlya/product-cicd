@@ -1,9 +1,15 @@
-import React from 'react'
+import React, { FC } from 'react'
 import { Link } from 'react-router-dom'
 import { Typography, Button, Paper, Box } from '@mui/material'
 import { themeColors } from '../../styles/mui'
+import { useAuthProvider } from '../../provider/AuthProvider'
 
-const Video = () => {
+interface VideoProps {
+  isVideo: boolean
+  src: string
+}
+
+const Video: FC<VideoProps> = ({ isVideo, src }) => {
   const styles = {
     videoContainer: {
       position: 'relative',
@@ -35,29 +41,33 @@ const Video = () => {
     } as React.CSSProperties,
   }
 
+  const { isAuthrized } = useAuthProvider()
+
   return (
     <Box style={styles.videoContainer}>
       <Paper elevation={0}>
-        {/* <video
-          style={styles.video}
-          preload="preload"
-          loop
-          muted
-          autoPlay
-          playsInline
-          webkit-playsInline
-          x-webkit-airplay="allow"
-          poster={`${process.env.REACT_APP_MEDIA}/poster.jpg`}
-        >
-          <source
-            src={`${process.env.REACT_APP_MEDIA}/video.mp4`}
-            type="video/mp4"
+        {isVideo ? (
+          <video
+            style={styles.video}
+            preload="preload"
+            loop
+            muted
+            autoPlay
+            playsInline
+            webkit-playsInline
+            x-webkit-airplay="allow"
+          >
+            <source
+              src={`${process.env.REACT_APP_MEDIA}/homemedia/${src}`}
+              type="video/mp4"
+            />
+          </video>
+        ) : (
+          <img
+            src={`${process.env.REACT_APP_MEDIA}/homemedia/${src}`}
+            style={styles.video}
           />
-        </video> */}
-        <img
-          src={`${process.env.REACT_APP_MEDIA}/banner.jpg`}
-          style={styles.video}
-        />
+        )}
       </Paper>
       <Box style={styles.showcase}>
         <Box className="centered">
@@ -72,15 +82,17 @@ const Video = () => {
             {settings?.description}
           </Typography>
         </Box>
-        <Link to="/client/catalog/0/0/0?page=1">
-          <Button
-            variant="contained"
-            sx={{ padding: '12px 20px' }}
-            color="secondary"
-          >
-            לקטלוג המלא
-          </Button>
-        </Link>
+        {isAuthrized && (
+          <Link to="/client/catalog/0/0/0?page=1">
+            <Button
+              variant="contained"
+              sx={{ padding: '12px 20px' }}
+              color="secondary"
+            >
+              לקטלוג המלא
+            </Button>
+          </Link>
+        )}
       </Box>
     </Box>
   )

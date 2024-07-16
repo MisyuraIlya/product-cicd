@@ -1,4 +1,4 @@
-import React, { useState, useRef, FC, ChangeEvent } from 'react'
+import React, { useState, useRef, FC, ChangeEvent, ReactNode } from 'react'
 import Cropper, { ReactCropperElement } from 'react-cropper'
 import 'cropperjs/dist/cropper.css'
 import { Box, Button, Grid, IconButton } from '@mui/material'
@@ -9,9 +9,16 @@ import Modals from '../components/Modals'
 
 interface MyCropperProps {
   aspectRatio: number
-  uploadImg: (base64: string, fileName: string) => void
+  uploadImg: (
+    base64: string,
+    fileName: string,
+    isVideo: boolean,
+    file?: File
+  ) => void
   itemImage: string | null
+  customClick?: ReactNode
 }
+
 const VisuallyHiddenInput = styled('input')({
   clip: 'rect(0 0 0 0)',
   clipPath: 'inset(50%)',
@@ -28,6 +35,7 @@ const MyCropper: FC<MyCropperProps> = ({
   aspectRatio,
   uploadImg,
   itemImage,
+  customClick,
 }) => {
   const [openModal, setOpenModal] = useState(false)
   const [isCropped, setIsCropped] = useState(true)
@@ -37,6 +45,8 @@ const MyCropper: FC<MyCropperProps> = ({
   const [cropData, setCropData] = useState('')
   const [fileName, setFileName] = useState('')
   const cropperRef = useRef<ReactCropperElement>(null)
+  const inputFileRef = useRef<HTMLInputElement>(null)
+
   const getCropData = () => {
     if (typeof cropperRef.current?.cropper !== 'undefined') {
       setCropData(cropperRef.current?.cropper.getCroppedCanvas().toDataURL())
@@ -45,19 +55,23 @@ const MyCropper: FC<MyCropperProps> = ({
   }
 
   const handleSave = () => {
-    uploadImg(cropData, fileName)
+    uploadImg(cropData, fileName, false)
     setOpenModal(false)
   }
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files
     if (files && files.length > 0) {
-      setOpenModal(true)
       const selectedFile = files[0]
-      setFileName(files[0].name)
-      setChoosedFile(selectedFile)
-      const fileUrl = URL.createObjectURL(selectedFile)
-      setPreviewUrl(fileUrl)
+      if (selectedFile?.type == 'video/mp4') {
+        uploadImg('', fileName, true, selectedFile)
+      } else {
+        setOpenModal(true)
+        setFileName(files[0].name)
+        setChoosedFile(selectedFile)
+        const fileUrl = URL.createObjectURL(selectedFile)
+        setPreviewUrl(fileUrl)
+      }
     }
   }
 
@@ -65,6 +79,13 @@ const MyCropper: FC<MyCropperProps> = ({
     setOpenModal(false)
     setChoosedFile(null)
   }
+
+  const handleCustomClick = () => {
+    if (inputFileRef.current) {
+      inputFileRef.current.click()
+    }
+  }
+
   return (
     <>
       <Box
@@ -81,18 +102,25 @@ const MyCropper: FC<MyCropperProps> = ({
           role={undefined}
           tabIndex={-1}
           sx={{ position: 'absolute', zIndex: 10, left: '10px' }}
+          onClick={handleCustomClick}
         >
-          <ControlPointIcon
-            sx={{
-              fontSize: '40px',
-              color: themeColors.primary,
-              opacity: '0.5',
-            }}
-          />
+          {customClick ? (
+            customClick
+          ) : (
+            <ControlPointIcon
+              sx={{
+                fontSize: '40px',
+                color: themeColors.primary,
+                opacity: '0.5',
+              }}
+            />
+          )}
+
           <VisuallyHiddenInput
             type="file"
             accept="image/*"
             onChange={handleFileChange}
+            ref={inputFileRef}
           />
         </IconButton>
       </Box>

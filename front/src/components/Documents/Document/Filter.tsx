@@ -98,8 +98,8 @@ const Filter = () => {
         <DemoContainer
           components={['DatePicker']}
           sx={{
-            pt: '10px',
-            width: '170px',
+            width: isMobile ? '100%' : '170px',
+            pt: isMobile ? '20px' : '10px',
             '& .MuiOutlinedInput-input': { padding: '10px 16px' },
             '& .MuiInputLabel-root': { top: '-7px' },
           }}

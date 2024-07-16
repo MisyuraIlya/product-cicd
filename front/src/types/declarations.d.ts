@@ -47,21 +47,12 @@ interface IURL {
 }
 
 interface GlobalSettings {
-  erp: string
-  api: string
-  username: string
-  password: string
-  host: string
-  usernameFtp: string
-  passwordFtp: string
-  db: string
-  imageState: string
   title: string
   description: string
-  primaryColor: string
-  secondaryColor: string
-  isWithStock: string
-  isWithMigvan: string
+  minimumPrice: number
+  deliveryPrice: number
+  isWithStock: boolean
+  isOpenWorld: boolean
   email: string
   phone: string
   fax: string
@@ -69,13 +60,11 @@ interface GlobalSettings {
   footerDescription1: string
   footerDescription2: string
   footerDescription3: string
-  oneSignalApi: string
-  oneSignalKey: string
-  smsApi: string
-  smsToken: string
+  primaryColor: string
+  secondaryColor: string
 
-  minimumPrice: number
-  deliveryPrice: number
+  oneSignalKey: string
+  paymentSystem: 'none' | 'tranzilla' | 'yadsarig'
 }
 
 declare global {

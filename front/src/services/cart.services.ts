@@ -8,8 +8,9 @@ const CartServices = {
     documentType: IDocumentType,
     deliveryPrice: number,
     discountUser?: number,
-    agent?: IUser | null
-  ) {
+    agent?: IUser | null,
+    isSendToErp?: boolean
+  ): Promise<SendOrderResponse> {
     const obj = {
       cart,
       comment,
@@ -18,6 +19,7 @@ const CartServices = {
       deliveryPrice,
       agent,
       discountUser,
+      isSendToErp,
     }
     const response = await axios.post(
       `${process.env.REACT_APP_API}/sendOrder`,

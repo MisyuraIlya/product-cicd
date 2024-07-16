@@ -21,7 +21,12 @@ const CustomSelectBox: FC<CustomSelectBox> = ({
 }) => {
   return (
     <Select
-      sx={{ minWidth: '150px' }}
+      sx={{
+        minWidth: '150px',
+        '& .MuiOutlinedInput-notchedOutline': {
+          borderColor: '#E0E0E0',
+        },
+      }}
       value={value}
       onChange={(e) => onChange(e.target.value)}
       renderValue={(selected) => (

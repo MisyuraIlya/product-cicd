@@ -20,20 +20,14 @@ import Footer from './components/Footer'
 import { URLS } from './enums/urls'
 import CartessetPage from './pages/CartessetPage'
 import HovotPage from './pages/Hovot'
+import HomeEditPage from './pages/HomeEditPage'
+import { useAuthProvider } from './provider/AuthProvider'
 const RouterApp = () => {
-  const { user } = useAuth()
-  const isAuthenticated = !!user
-  const navigate = useNavigate()
-  useEffect(() => {
-    if (!isAuthenticated) {
-      navigate('/')
-    }
-  }, [isAuthenticated])
-
+  const { isAuthrized } = useAuthProvider()
   return (
     <>
       <Header />
-      <main style={{ minHeight: '90vh' }}>
+      <main style={{ minHeight: isAuthrized ? '90vh' : '0px' }}>
         <Routes>
           <Route>
             <Route path={URLS.HOME.ROUTER} element={<Home />} />
@@ -71,6 +65,10 @@ const RouterApp = () => {
             <Route
               path={URLS.ADMIN_NOTIFICATIONS.ROUTER}
               element={<NotificationPage />}
+            />
+            <Route
+              path={URLS.ADMIN_EDIT_HOME.ROUTER}
+              element={<HomeEditPage />}
             />
           </Route>
         </Routes>

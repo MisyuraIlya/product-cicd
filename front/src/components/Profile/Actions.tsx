@@ -64,7 +64,7 @@ const Actions: FC<AgentActionsProps> = ({ colsNumber }) => {
       title: 'החזרה',
       mode: 'return',
       link: '/CatalogView',
-      img: <RestorePageIcon sx={{ fontSize: '40px' }} />,
+      img: <RestorePageIcon sx={{ fontSize: '40px' }} color="info" />,
     },
     {
       title: 'ה.מחיר',

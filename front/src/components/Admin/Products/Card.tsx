@@ -120,9 +120,7 @@ const Card: FC<ProductsEditItemProps> = ({ element, index }) => {
             </TableCell>
             <TableCell sx={{ width: '10%' }}>
               <IconButton onClick={() => setActive(true)}>
-                <CollectionsIcon
-                  sx={{ fontSize: '35px', color: themeColors.primary }}
-                />
+                <CollectionsIcon sx={{ fontSize: '35px' }} />
               </IconButton>
             </TableCell>
             <TableCell sx={{ width: '10%' }}>

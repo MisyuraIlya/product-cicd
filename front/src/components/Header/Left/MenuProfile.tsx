@@ -27,22 +27,22 @@ const clientURL = {
   PROFILE: {
     LINK: URLS.PROFILE.LINK,
     LABEL: URLS.PROFILE.LABEL,
-    ICON: <PersonIcon />,
+    ICON: <PersonIcon sx={{ width: '22px' }} />,
   },
   DOCUMENTS: {
     LINK: URLS.DOCUMENTS.LINK,
     LABEL: URLS.DOCUMENTS.LABEL,
-    ICON: <AssignmentIcon />,
+    ICON: <AssignmentIcon sx={{ width: '22px' }} />,
   },
   CARTESSET: {
     LINK: URLS.CARTESSET.LINK,
     LABEL: URLS.CARTESSET.LABEL,
-    ICON: <PriceChangeIcon />,
+    ICON: <PriceChangeIcon sx={{ width: '20px' }} />,
   },
   HOVOT: {
     LINK: URLS.GIUL_HOVOT.LINK,
     LABEL: URLS.GIUL_HOVOT.LABEL,
-    ICON: <CurrencyExchangeIcon />,
+    ICON: <CurrencyExchangeIcon sx={{ width: '20px' }} />,
   },
 }
 
@@ -118,7 +118,7 @@ const MenuProfile: FC<MenuProfile> = ({ handleClose }) => {
   }
 
   return (
-    <Box>
+    <Box sx={{ padding: '12px' }}>
       <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
         <Box>
           <Typography variant={isMobile ? 'h6' : 'h5'}>
@@ -163,7 +163,7 @@ const MenuProfile: FC<MenuProfile> = ({ handleClose }) => {
       </Box>
       {Object.entries(clientURL).map(([key, value]) => (
         <MenuItem key={key} onClick={() => handleNaviagte(value.LINK)}>
-          <ListItemIcon>{value.ICON}</ListItemIcon>
+          <ListItemIcon sx={{ width: '16px' }}>{value.ICON}</ListItemIcon>
           <ListItemText>
             <Typography variant="h6">{value.LABEL}</Typography>
           </ListItemText>

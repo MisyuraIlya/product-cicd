@@ -9,10 +9,11 @@ import SaveAsIcon from '@mui/icons-material/SaveAs'
 import FileUploadIcon from '@mui/icons-material/FileUpload'
 import { useAuth } from '../../../store/auth.store'
 import { themeColors } from '../../../styles/mui'
+import { useMobile } from '../../../provider/MobileProvider'
 
 const Options = () => {
   const { cart, setCart, selectedMode, saveDraft } = useCart()
-
+  const { isMobile } = useMobile()
   const { user } = useAuth()
   const navigate = useNavigate()
   let from = moment().subtract(1, 'months').format('YYYY-MM-DD')
@@ -44,15 +45,19 @@ const Options = () => {
   return (
     <Box
       sx={{
-        display: 'flex',
+        display: isMobile ? 'block' : 'flex',
         justifyContent: 'space-between',
         margin: '0 20px',
       }}
     >
       <Box>
-        <Typography variant="h5">{`סיכום ${selectedMode?.label}`}</Typography>
+        <Typography
+          variant="h5"
+          fontWeight={600}
+        >{`סיכום ${selectedMode?.label}`}</Typography>
         <Typography
           variant="subtitle1"
+          fontWeight={600}
           color={themeColors.asphalt}
           sx={{ margin: '10px 0' }}
         >
@@ -115,7 +120,7 @@ const Options = () => {
                 sm: { minWidth: '130px' },
                 xs: { minWidth: '100px' },
               },
-              height: '39px',
+              height: '35px',
             }}
           >
             מחק סל

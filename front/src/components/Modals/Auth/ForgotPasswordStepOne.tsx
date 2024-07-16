@@ -54,7 +54,7 @@ const ForgotPasswordStepOne = () => {
           />
         </FormControl>
         <Button
-          sx={{ marginTop: '30px' }}
+          sx={{ marginTop: '30px', height: '44px' }}
           fullWidth={true}
           type="submit"
           variant="contained"

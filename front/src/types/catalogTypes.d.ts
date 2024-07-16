@@ -12,6 +12,7 @@ interface IProduct {
   updatedAt: string
   basePrice: float
   finalPrice: float
+  minimumPrice: float
   stock: number
   packQuantity: number
   discount: number
@@ -22,6 +23,13 @@ interface IProduct {
   linkTitle: string
   isNew: boolean
   isSpecial: boolean
+  length: string
+  width: string
+  height: string
+  color: string
+  volume: string
+  diameter: string
+  weight: string
 }
 
 interface packProducts {

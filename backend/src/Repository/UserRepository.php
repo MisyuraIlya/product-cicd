@@ -154,14 +154,13 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     public function GetAgentClients(string $agentId, int $page = 1, int $usersPerPage = 50, ?string $search = null, ?bool $isSuperAgent = false): Paginator
     {
         $queryBuilder = $this->createQueryBuilder('u');
-
         if (!$isSuperAgent) {
             $queryBuilder
                 ->where('u.agent = :agentId')
                 ->setParameter('agentId', $agentId);
         }
 
-
+        $queryBuilder->andWhere('u.isBlocked = false');
         if ($search !== null) {
             $queryBuilder
                 ->andWhere($queryBuilder->expr()->orX(

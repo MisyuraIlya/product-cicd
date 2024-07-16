@@ -32,7 +32,7 @@ const HistoryPurchse: FC<TablePopUpProps> = ({ active, setActive }) => {
   const { isMobile } = useMobile()
   return (
     <ModalWrapper
-      width={50}
+      width={70}
       height={'80%'}
       active={active}
       setActive={setActive}
@@ -40,8 +40,12 @@ const HistoryPurchse: FC<TablePopUpProps> = ({ active, setActive }) => {
         <Box sx={{ display: isMobile ? 'block' : 'flex', gap: '20px' }}>
           <Box>
             <img
-              src={`${process.env.REACT_APP_MEDIA}/product/${selectedProd.defaultImagePath}`}
-              style={{ width: '90px', height: '90px' }}
+              src={
+                selectedProd.defaultImagePath
+                  ? `${process.env.REACT_APP_MEDIA}/product/${selectedProd.defaultImagePath}`
+                  : `${process.env.REACT_APP_MEDIA}/placeholder.jpg`
+              }
+              style={{ width: '90px', height: '90px', objectFit: 'contain' }}
             />
           </Box>
           <Box>
@@ -70,78 +74,14 @@ const HistoryPurchse: FC<TablePopUpProps> = ({ active, setActive }) => {
             <Table>
               <TableHead>
                 <TableRow>
-                  <TableCell>
-                    <Typography
-                      variant="body2"
-                      color={themeColors.primary}
-                      fontWeight={800}
-                    >
-                      {'מסמך'}
-                    </Typography>
-                  </TableCell>
-                  <TableCell sx={{ minWidth: '150px' }}>
-                    <Typography
-                      variant="body2"
-                      color={themeColors.primary}
-                      fontWeight={800}
-                    >
-                      {'תאריך'}
-                    </Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Typography
-                      variant="body2"
-                      color={themeColors.primary}
-                      fontWeight={800}
-                    >
-                      {'כמות'}
-                    </Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Typography
-                      variant="body2"
-                      color={themeColors.primary}
-                      fontWeight={800}
-                    >
-                      {'מחיר'}
-                    </Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Typography
-                      variant="body2"
-                      color={themeColors.primary}
-                      fontWeight={800}
-                    >
-                      {'מחיר אחרי מע"מ'}
-                    </Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Typography
-                      variant="body2"
-                      color={themeColors.primary}
-                      fontWeight={800}
-                    >
-                      {'הנחה'}
-                    </Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Typography
-                      variant="body2"
-                      color={themeColors.primary}
-                      fontWeight={800}
-                    >
-                      {'סה"כ בתנועה'}
-                    </Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Typography
-                      variant="body2"
-                      color={themeColors.primary}
-                      fontWeight={800}
-                    >
-                      {'סה"כ בתנועה אחרי מע"מ'}
-                    </Typography>
-                  </TableCell>
+                  <TableCell>{'מסמך'}</TableCell>
+                  <TableCell sx={{ minWidth: '150px' }}>{'תאריך'}</TableCell>
+                  <TableCell>{'כמות'}</TableCell>
+                  <TableCell>{'מחיר'}</TableCell>
+                  <TableCell>{'מחיר אחרי מע"מ'}</TableCell>
+                  <TableCell>{'הנחה'}</TableCell>
+                  <TableCell>{'סה"כ בתנועה'}</TableCell>
+                  <TableCell>{'סה"כ בתנועה אחרי מע"מ'}</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>

@@ -20,7 +20,7 @@ import { URLS } from '../../../enums/urls'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../../../store/auth.store'
 import AgentMenuProfile from './AgentMenuProfile'
-
+import AssignmentIndIcon from '@mui/icons-material/AssignmentInd'
 const agentURL = {
   // DOCUMENT_APPROCE: {
   //   LINK: URLS.AGNET_DASHBOARD.LINK,
@@ -67,7 +67,7 @@ const AgentMenu = () => {
           border: '1px solid #E0E0E0',
         }}
       >
-        <SupportAgentIcon />
+        <AssignmentIndIcon />
       </IconButton>
       <Menu
         id="basic-menu"

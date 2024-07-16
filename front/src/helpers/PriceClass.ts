@@ -9,14 +9,13 @@ class PriceCalculator {
     taxRate: number = 0,
     user: IUser | null,
     cart: ICart[],
-    deliveryPrice: number = 0,
     minimumPrice: number = 0
   ) {
     this.taxRate = taxRate
     this.user = user
     this.cart = cart
-    this.deliveryPrice = deliveryPrice
-    this.minimumPrice = minimumPrice
+    this.deliveryPrice = settings.deliveryPrice
+    this.minimumPrice = settings.minimumPrice
   }
 
   // חייב במע״מ
@@ -41,12 +40,16 @@ class PriceCalculator {
 
   //למינימום הזמנה
   public getCountFromMinimumPirce(): number {
-    return this.minimumPrice - this.getFinalPrice()
+    return this.minimumPrice - this.getTotalPriceAfterTax()
   }
 
   // מחיר סופי אחרי הכל
   public getFinalPrice(): number {
-    return this.getTotalPriceAfterTax() + this.deliveryPrice
+    console.log('this.deliveryPrice', this.deliveryPrice)
+    const price =
+      Number(this.getTotalPriceAfterTax()) + Number(this.deliveryPrice)
+    const formattedPrice = parseFloat(price.toFixed(2))
+    return formattedPrice
   }
 }
 

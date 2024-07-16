@@ -6,7 +6,7 @@ export const UserStatus = (user: IUser) => {
       return (
         <Chip
           variant="outlined"
-          sx={{ minWidth: '100px', borderRadius: '5px' }}
+          sx={{ minWidth: '100px' }}
           label="לקוח חסום"
           color="error"
         />
@@ -15,7 +15,7 @@ export const UserStatus = (user: IUser) => {
       return (
         <Chip
           variant="outlined"
-          sx={{ minWidth: '100px', borderRadius: '5px' }}
+          sx={{ minWidth: '100px' }}
           label="לקוח פעיל"
           color="success"
         />
@@ -25,7 +25,7 @@ export const UserStatus = (user: IUser) => {
     return (
       <Chip
         variant="outlined"
-        sx={{ minWidth: '100px', borderRadius: '5px' }}
+        sx={{ minWidth: '100px' }}
         label="לקוח לא פעיל"
         color="info"
       />

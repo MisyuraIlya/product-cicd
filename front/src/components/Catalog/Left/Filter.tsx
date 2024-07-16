@@ -113,7 +113,7 @@ const Filter = () => {
         </Box>
         <Box sx={{ display: 'flex', gap: '12px' }}>
           <CustomSelectBox
-            label="מיון"
+            label="הצג"
             value={prodsPerPage}
             onChange={(e) => handleChangeItemsPerPage(e)}
             options={prodsPerPageArr}

@@ -1,3 +1,0 @@
-1. notification handler + sms
-2. onCLick on add to cart input 
-3. send mail support

@@ -17,12 +17,19 @@ interface ProductSectionProps {
   title: string
   array: IProduct[]
   toShow: number
+  toShowInMobile: number
   column: number
   loading: boolean
   link: string
 }
 
-const Products: FC<ProductSectionProps> = ({ title, array, link }) => {
+const Products: FC<ProductSectionProps> = ({
+  title,
+  array,
+  link,
+  toShow,
+  toShowInMobile,
+}) => {
   const swiperRef = useRef(null)
   const { isMobile } = useMobile()
   const navigate = useNavigate()
@@ -36,19 +43,19 @@ const Products: FC<ProductSectionProps> = ({ title, array, link }) => {
     },
     breakpoints: {
       1400: {
-        slidesPerView: 4,
-        slidesPerColumn: 1,
+        slidesPerView: toShow,
+        slidesPerColumn: 2,
       },
       1000: {
-        slidesPerView: 4,
+        slidesPerView: toShow,
         slidesPerColumn: 1,
       },
       600: {
-        slidesPerView: 2,
+        slidesPerView: toShowInMobile,
         slidesPerColumn: 1,
       },
       0: {
-        slidesPerView: 2,
+        slidesPerView: toShowInMobile,
         slidesPerColumn: 1,
       },
     },

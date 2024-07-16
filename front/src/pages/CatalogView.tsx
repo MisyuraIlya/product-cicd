@@ -25,7 +25,7 @@ const CatalogView = () => {
               <Grid item sm={3} xs={6} key={index}>
                 <Card
                   elevation={0}
-                  sx={{ cursor: 'pointer', height: '200px' }}
+                  sx={{ cursor: 'pointer' }}
                   onClick={() =>
                     navigate(`/client/catalog/${element.id}/0/0?page=1`)
                   }
@@ -33,7 +33,8 @@ const CatalogView = () => {
                   <CardMedia
                     component="img"
                     sx={{
-                      width: '200px',
+                      height: '100%',
+                      width: '100%',
                       objectFit: 'contain',
                       transition: 'transform 0.3s ease-in-out',
                       '&:hover': {
@@ -46,7 +47,13 @@ const CatalogView = () => {
                         : `${process.env.REACT_APP_MEDIA}/placeholder.jpg`
                     }
                   />
-                  <CardContent>
+                  <CardContent
+                    sx={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}
+                  >
                     <Typography variant="h5">{element?.title}</Typography>
                   </CardContent>
                 </Card>

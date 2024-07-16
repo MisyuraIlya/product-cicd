@@ -23,6 +23,9 @@ import { useMobile } from '../provider/MobileProvider'
 import MenuProfile from './Header/Left/MenuProfile'
 import SupportAgentIcon from '@mui/icons-material/SupportAgent'
 import AgentMenuProfile from './Header/Right/AgentMenuProfile'
+import PersonIcon from '@mui/icons-material/Person'
+import GroupIcon from '@mui/icons-material/Group'
+import AssignmentIndIcon from '@mui/icons-material/AssignmentInd'
 
 const BottomNavigationMobile = () => {
   const [value, setValue] = useState('')
@@ -81,21 +84,21 @@ const BottomNavigationMobile = () => {
                 <BottomNavigationAction
                   label="סוכן"
                   value="1"
-                  icon={<SupportAgentIcon />}
+                  icon={<AssignmentIndIcon />}
                 />
               )}
 
               <BottomNavigationAction
                 label="פרופיל"
                 value="2"
-                icon={<PermIdentityIcon />}
+                icon={<PersonIcon />}
               />
 
               {isAgent && (
                 <BottomNavigationAction
                   label="לקוחות"
                   value="5"
-                  icon={<StorefrontIcon />}
+                  icon={<GroupIcon />}
                 />
               )}
               {user && (

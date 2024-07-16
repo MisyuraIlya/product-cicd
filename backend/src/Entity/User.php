@@ -58,7 +58,7 @@ use ApiPlatform\Doctrine\Orm\Filter\BooleanFilter;
     ]
 )]
 
-#[ApiFilter(BooleanFilter::class, properties: ['isAgent'])]
+#[ApiFilter(BooleanFilter::class, properties: ['isAgent','isBlocked'])]
 
 
 class User implements UserInterface, PasswordAuthenticatedUserInterface
@@ -138,12 +138,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $passwordUnencrypted = null;
 
     #[Groups(['user:read','agentTarget:read','agentObjective:read','notificationUser:read'])]
-    #[ORM\Column(type: 'boolean', options: ['default' => false])]
+    #[ORM\Column(type: 'boolean', options: ['default' => false, "comment" => "for agent only (agent can send order without approve)"])]
     private ?bool $isAllowOrder = false;
 
 
     #[Groups(['user:read', 'agentTarget:read', 'agentObjective:read','notificationUser:read'])]
-    #[ORM\Column(type: 'boolean', options: ['default' => false])]
+    #[ORM\Column(type: 'boolean', options: ['default' => false, "comment" => "for agent only (can all clients not only yours)"])]
     private ?bool $isAllowAllClients = false;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: PriceListUser::class)]
@@ -198,6 +198,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $oneSignalAppId = null;
 
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Payment::class)]
+    private Collection $payments;
+
 
 
     public function __construct()
@@ -212,6 +215,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->users = new ArrayCollection();
         $this->usersAgent = new ArrayCollection();
         $this->notificationUsers = new ArrayCollection();
+        $this->payments = new ArrayCollection();
     }
 
 
@@ -828,6 +832,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setOneSignalAppId(?string $oneSignalAppId): static
     {
         $this->oneSignalAppId = $oneSignalAppId;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Payment>
+     */
+    public function getPayments(): Collection
+    {
+        return $this->payments;
+    }
+
+    public function addPayment(Payment $payment): static
+    {
+        if (!$this->payments->contains($payment)) {
+            $this->payments->add($payment);
+            $payment->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removePayment(Payment $payment): static
+    {
+        if ($this->payments->removeElement($payment)) {
+            // set the owning side to null (unless already changed)
+            if ($payment->getUser() === $this) {
+                $payment->setUser(null);
+            }
+        }
 
         return $this;
     }

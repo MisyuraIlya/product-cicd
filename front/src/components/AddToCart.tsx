@@ -27,32 +27,49 @@ const AddToCart: FC<AddToCartProps> = ({ item }) => {
   const isInCart = find[0]?.sku ? true : false
   const { setNotifyStock, setNotifyAddTocart } = useModals()
   const { selectedMode } = useCart()
+
   const addToCartFunc = () => {
     if (!user) {
       onInfoAlert('לא ניתן להוסיף לסל', 'צריך להכנס למערכת')
       return
     }
-    if (item?.stock >= item.packQuantity) {
+    if (settings.isWithStock) {
+      if (item?.stock >= item.packQuantity || selectedMode.value === 'quote') {
+        addToCart(item)
+        setNotifyAddTocart(true)
+      } else {
+        setNotifyStock(true)
+      }
+    } else {
       addToCart(item)
       setNotifyAddTocart(true)
-    } else {
-      setNotifyStock(true)
     }
   }
 
   const increaseCartFunc = () => {
-    if (item?.stock > Quantity) {
-      increaseCart(item.sku)
+    if (settings.isWithStock) {
+      if (item?.stock > Quantity || selectedMode.value === 'quote') {
+        increaseCart(item.sku)
+      } else {
+        setNotifyStock(true)
+      }
     } else {
-      setNotifyStock(true)
+      increaseCart(item.sku)
     }
   }
 
   const onChangeQuantityFunc = (value: number) => {
-    if (item?.stock >= value * item.packQuantity) {
-      changeQuantity(item.sku, value)
+    if (settings.isWithStock) {
+      if (
+        item?.stock >= value * item.packQuantity ||
+        selectedMode.value === 'quote'
+      ) {
+        changeQuantity(item.sku, value)
+      } else {
+        setNotifyStock(true)
+      }
     } else {
-      setNotifyStock(true)
+      changeQuantity(item.sku, value)
     }
   }
 

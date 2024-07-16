@@ -56,6 +56,11 @@ class Priority implements ErpInterface
         $this->password = $password;
         $this->url = $url;
         $this->httpClient = $httpClient;
+        $erpType =  $_ENV['ERP_TYPE'];
+        $this->CategoryTable = $_ENV['CATEGORY_STATE'] ;
+        $this->ErpCategoryLvl1 = $_ENV['CATEGORY_LVL_1'] ;
+        $this->ErpCategoryLvl2 = $_ENV['CATEGORY_LVL_2'] ;
+        $this->ErpCategoryLvl3 = $_ENV['CATEGORY_LVL_3'] ;
     }
     public function GetRequest($query)
     {
@@ -368,13 +373,13 @@ class Priority implements ErpInterface
         $endpoint = "/LOGPART";
         if($pageSize) {
             $queryExtras = [
-                '$select' => "PARTNAME,PARTDES,BARCODE,CONV,FAMILYNAME,FAMILYDES,SPEC9,SPEC10,STATDES,BASEPLPRICE",
+                '$select' => "MINPRICE,PARTNAME,PARTDES,BARCODE,CONV,FAMILYNAME,FAMILYDES,SPEC9,SPEC10,STATDES,BASEPLPRICE,SPEC2,SPEC3,SPEC4,SPEC5,SPEC6,SPEC7,SPEC8",
                 '$top' => $pageSize,
                 '$skip' => $skip,
             ];
         } else {
             $queryExtras = [
-                '$select' => "PARTNAME,PARTDES,BARCODE,CONV,FAMILYNAME,FAMILYDES,SPEC9,SPEC10,STATDES,BASEPLPRICE",
+                '$select' => "MINPRICE,PARTNAME,PARTDES,BARCODE,CONV,FAMILYNAME,FAMILYDES,SPEC9,SPEC10,STATDES,BASEPLPRICE,SPEC2,SPEC3,SPEC4,SPEC5,SPEC6,SPEC7,SPEC8",
             ];
         }
 
@@ -389,14 +394,22 @@ class Priority implements ErpInterface
             $dto->title = $itemRec['PARTDES'];
             $dto->barcode = $itemRec['BARCODE'];
             $dto->packQuantity = $itemRec['CONV'];
-            $dto->categoryLvl1Id = $itemRec['FAMILYNAME'];
-            $dto->categoryLvl1Name = $itemRec['FAMILYDES'];
-            $dto->categoryLvl2Id = $itemRec['SPEC9'];
-            $dto->categoryLvl2Name = $itemRec['SPEC9'];
-            $dto->categoryLvl3Id = $itemRec['SPEC10'];
-            $dto->categoryLvl3Name = $itemRec['SPEC10'];
+            $dto->categoryLvl1Id = $itemRec[$this->ErpCategoryLvl1];
+            $dto->categoryLvl1Name = $itemRec[$this->ErpCategoryLvl1 == 'FAMILYNAME' ? 'FAMILYDES' : $this->ErpCategoryLvl1];
+            $dto->categoryLvl2Id = $itemRec[$this->ErpCategoryLvl2];
+            $dto->categoryLvl2Name = $itemRec[$this->ErpCategoryLvl2];
+            $dto->categoryLvl3Id = $itemRec[$this->ErpCategoryLvl3];
+            $dto->categoryLvl3Name = $itemRec[$this->ErpCategoryLvl3];
             $dto->status = $itemRec['STATDES'] === 'פעיל' ? true : false;
             $dto->baseprice = $itemRec['BASEPLPRICE'];
+            $dto->minimumPrice = $itemRec['MINPRICE'];
+            $dto->Extra2 = $itemRec['SPEC2'];
+            $dto->Extra3 = $itemRec['SPEC3'];
+            $dto->Extra4 = $itemRec['SPEC4'];
+            $dto->Extra5 = $itemRec['SPEC5'];
+            $dto->Extra6 = $itemRec['SPEC6'];
+            $dto->Extra7 = $itemRec['SPEC7'];
+            $dto->Extra8 = $itemRec['SPEC8'];
             $dtoRes->products[] = $dto;
         }
         return $dtoRes;

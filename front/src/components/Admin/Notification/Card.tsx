@@ -74,10 +74,11 @@ const Card: FC<NotificationItemProps> = ({ element, index }) => {
           aria-controls="panel1-content"
           id="panel1-header"
         >
-          <Box sx={{ display: 'flex', gap: '20px' }}>
+          <Box sx={{ display: 'flex', gap: '20px', width: '70%' }}>
             <Grid container spacing={2}>
               <Grid item xs={4}>
                 <img
+                  style={{ height: '70px', objectFit: 'contain' }}
                   src={
                     element?.image?.filePath
                       ? process.env.REACT_APP_MEDIA +
@@ -85,7 +86,6 @@ const Card: FC<NotificationItemProps> = ({ element, index }) => {
                         element?.image?.filePath
                       : process.env.REACT_APP_MEDIA + '/placeholder.jpg'
                   }
-                  width={'100px'}
                 />
               </Grid>
               <Grid item xs={4} sx={{ display: 'flex', alignItems: 'center' }}>
@@ -167,7 +167,7 @@ const Card: FC<NotificationItemProps> = ({ element, index }) => {
             </RadioGroup>
           </FormControl>
           <Button
-            sx={{ marginTop: '20px' }}
+            sx={{ marginTop: '20px', height: '44px' }}
             variant="contained"
             color="success"
             fullWidth={true}

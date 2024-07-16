@@ -112,6 +112,9 @@ class History
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $error = null;
 
+    #[ORM\ManyToOne(inversedBy: 'histories')]
+    private ?Payment $payment = null;
+
     public function __construct()
     {
         $this->historyDetaileds = new ArrayCollection();
@@ -364,6 +367,18 @@ class History
     public function setError(?string $error): static
     {
         $this->error = $error;
+
+        return $this;
+    }
+
+    public function getPayment(): ?Payment
+    {
+        return $this->payment;
+    }
+
+    public function setPayment(?Payment $payment): static
+    {
+        $this->payment = $payment;
 
         return $this;
     }

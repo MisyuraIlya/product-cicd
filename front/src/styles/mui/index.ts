@@ -9,7 +9,6 @@ export const themeColors = {
   warning: '#F3C521',
   error: '#C52A43',
   info: '#2196F3',
-
   black: '#223354',
   white: '#ffffff',
   primaryAlt: '#000C57',
@@ -141,7 +140,7 @@ export const colors = {
 const theme = createTheme({
   direction: 'rtl',
   typography: {
-    fontFamily: 'Ploni, Arial',
+    fontFamily: '"Noto Sans Hebrew", sans-serif',
     h2: {
       fontSize: '60px',
       lineHeight: '72px',
@@ -256,29 +255,43 @@ const theme = createTheme({
         },
       },
     },
-
+    MuiTableContainer: {
+      styleOverrides: {
+        root: {
+          boxShadow: 'none',
+        },
+      },
+    },
     // Table
+    MuiTableCell: {
+      styleOverrides: {
+        root: {
+          fontSize: '18px',
+          fontWeight: 600,
+        },
+      },
+    },
     MuiTableRow: {
       styleOverrides: {
         root: {
           cursor: 'pointer',
           '&:hover': {
-            backgroundColor: '#e0e0e0', // Set your desired background color for hover effect
+            backgroundColor: '#ececec', // Set your desired background color for hover effect
           },
           '&:nth-child(even)': {
             backgroundColor: '#f5f5f5', // Set your desired background color for even rows
             '&:hover': {
-              backgroundColor: '#e0e0e0', // Set your desired background color for hover effect
+              backgroundColor: '#ececec', // Set your desired background color for hover effect
             },
           },
         },
       },
     },
     // BUTTONS
-
     MuiButton: {
       styleOverrides: {
         root: {
+          height: '50px',
           borderRadius: '4px',
           fontWeight: 600,
           fontSize: '16px',
@@ -308,7 +321,14 @@ const theme = createTheme({
         },
       },
     },
-
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          boxShadow:
+            '0px 2px 10px 0px rgba(0, 0, 0, 0.05), 0px 7px 25px 0px rgba(0, 0, 0, 0.05)',
+        },
+      },
+    },
     // MODAL
 
     // MuiBackdrop: {
@@ -581,12 +601,7 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           borderRadius: themeSettings.borderRadius,
-          boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)', // Set your default box shadow
           transition: 'box-shadow 0.3s ease',
-
-          '&:hover': {
-            boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)', // Set your hover box shadow
-          },
         },
       },
     },

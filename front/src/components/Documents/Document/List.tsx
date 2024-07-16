@@ -81,93 +81,21 @@ const List = () => {
           <Table className="lines-sub-cont">
             <TableHead>
               <TableRow className="heading">
-                <TableCell className="col-cont sticky-col">
-                  <Typography
-                    variant="body2"
-                    color={themeColors.primary}
-                    fontWeight={800}
-                  >
-                    #
-                  </Typography>
-                </TableCell>
-                <TableCell sx={{ minWidth: '150px' }}>
-                  <Typography
-                    variant="body2"
-                    color={themeColors.primary}
-                    fontWeight={800}
-                  >
-                    לקוח
-                  </Typography>
-                </TableCell>
+                <TableCell className="col-cont sticky-col">#</TableCell>
+                <TableCell sx={{ minWidth: '150px' }}>לקוח</TableCell>
                 {(user?.role === 'ROLE_AGENT' ||
                   user?.role === 'ROLE_SUPER_AGENT' ||
                   user?.role === 'ROLE_ADMIN') &&
                   documentType == 'order' && (
-                    <TableCell sx={{ minWidth: '150px' }}>
-                      <Typography
-                        variant="body2"
-                        color={themeColors.primary}
-                        fontWeight={800}
-                      >
-                        סוכן
-                      </Typography>
-                    </TableCell>
+                    <TableCell sx={{ minWidth: '150px' }}>סוכן</TableCell>
                   )}
-                <TableCell sx={{ minWidth: '150px' }}>
-                  <Typography
-                    variant="body2"
-                    color={themeColors.primary}
-                    fontWeight={800}
-                  >
-                    סוג
-                  </Typography>
-                </TableCell>
-                <TableCell sx={{ minWidth: '100px' }}>
-                  <Typography
-                    variant="body2"
-                    color={themeColors.primary}
-                    fontWeight={800}
-                  >
-                    ת.ערך
-                  </Typography>
-                </TableCell>
-                <TableCell sx={{ minWidth: '150px' }}>
-                  <Typography
-                    variant="body2"
-                    color={themeColors.primary}
-                    fontWeight={800}
-                  >
-                    ת.תשלום
-                  </Typography>
-                </TableCell>
-                <TableCell className="col-cont">
-                  <Typography
-                    variant="body2"
-                    color={themeColors.primary}
-                    fontWeight={800}
-                  >
-                    סה״כ
-                  </Typography>
-                </TableCell>
-                <TableCell className="col-cont">
-                  <Typography
-                    variant="body2"
-                    color={themeColors.primary}
-                    fontWeight={800}
-                  >
-                    סטאטוס
-                  </Typography>
-                </TableCell>
+                <TableCell sx={{ minWidth: '150px' }}>סוג</TableCell>
+                <TableCell sx={{ minWidth: '100px' }}>ת.ערך</TableCell>
+                <TableCell sx={{ minWidth: '150px' }}>ת.תשלום</TableCell>
+                <TableCell className="col-cont">סה״כ</TableCell>
+                <TableCell className="col-cont">סטאטוס</TableCell>
                 {isAdmin && documentType === 'history' && (
-                  <TableCell className="col-cont">
-                    <Typography
-                      variant="body2"
-                      color={themeColors.primary}
-                      fontWeight={800}
-                    >
-                      שגיאה
-                    </Typography>
-                  </TableCell>
+                  <TableCell className="col-cont">שגיאה</TableCell>
                 )}
               </TableRow>
             </TableHead>

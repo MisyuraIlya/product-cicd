@@ -1,10 +1,9 @@
 import React from 'react'
-import StorefrontIcon from '@mui/icons-material/Storefront'
 import { IconButton, Tooltip } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 import { URLS } from '../../../enums/urls'
 import { useAuth } from '../../../store/auth.store'
-
+import GroupIcon from '@mui/icons-material/Group'
 const ClientsButton = () => {
   const navigate = useNavigate()
   const { agent } = useAuth()
@@ -18,7 +17,7 @@ const ClientsButton = () => {
       }}
     >
       <Tooltip title={'לקוחות'}>
-        <StorefrontIcon />
+        <GroupIcon />
       </Tooltip>
     </IconButton>
   )

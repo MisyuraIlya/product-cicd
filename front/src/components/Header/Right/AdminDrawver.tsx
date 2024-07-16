@@ -14,12 +14,18 @@ import NotificationAddIcon from '@mui/icons-material/NotificationAdd'
 import PermMediaIcon from '@mui/icons-material/PermMedia'
 import FileCopyIcon from '@mui/icons-material/FileCopy'
 import { URLS } from '../../../enums/urls'
+import AddHomeIcon from '@mui/icons-material/AddHome'
 import { Navigate, useNavigate } from 'react-router-dom'
 export const AdminURL = {
   CATALOG_EDIT: {
     LINK: URLS.ADMIN_EDIT_CATALOG.LINK,
     LABEL: URLS.ADMIN_EDIT_CATALOG.LABEL,
     ICON: <PermMediaIcon sx={{ fontSize: '25px' }} />,
+  },
+  HOME_EDIT: {
+    LINK: URLS.ADMIN_EDIT_HOME.LINK,
+    LABEL: URLS.ADMIN_EDIT_HOME.LABEL,
+    ICON: <AddHomeIcon sx={{ fontSize: '25px' }} />,
   },
   CLIENTS: {
     LINK: URLS.ADMIN_CLIENTS.LINK,

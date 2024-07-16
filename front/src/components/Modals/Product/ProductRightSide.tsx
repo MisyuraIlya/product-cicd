@@ -11,24 +11,6 @@ const ProductRightSide = () => {
   const { selectedProd } = useSelectedProduct()
   const { handleImageModal } = useModals()
   const { isMobile } = useMobile()
-  const shareImage = () => {
-    let message = 'שיתוף לינק לתמונה \n'
-    message += 'מק״ט: ' + selectedProd.sku + '\n'
-    message += 'מוצר: ' + selectedProd.title + '\n'
-    message += 'לינק: '
-    message += 'products/' + selectedProd.defaultImagePath
-    window.open(
-      'https://api.whatsapp.com/send?text=' + encodeURIComponent(message)
-    )
-  }
-
-  const openLink = () => {
-    let imageURL =
-      'https://digitrade.com.ua/src/img3' +
-      '/product/' +
-      selectedProd.defaultImagePath
-    window.open(imageURL, '_blank')
-  }
 
   return (
     <>

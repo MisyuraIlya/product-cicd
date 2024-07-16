@@ -11,7 +11,7 @@ class MigvanChecker
         private readonly ErpManager $erpManager
     )
     {
-        $this->isOnlinePrice = $_ENV['IS_USED_MIGVAN'] === "true";
+        $this->isOnlinePrice = $_ENV['IS_WITH_MIGVAN'] === "true";
     }
     public function GetMigvanOnline(?User $user): array
     {

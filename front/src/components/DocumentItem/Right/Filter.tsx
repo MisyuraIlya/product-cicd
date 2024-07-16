@@ -2,7 +2,16 @@ import React, { useState } from 'react'
 import { useCart } from '../../../store/cart.store'
 import { useModals } from '../../../provider/ModalProvider'
 import { useAuth } from '../../../store/auth.store'
-import { Box, Button, Paper, Typography } from '@mui/material'
+import {
+  Box,
+  Button,
+  ListItemIcon,
+  ListItemText,
+  Menu,
+  MenuItem,
+  Paper,
+  Typography,
+} from '@mui/material'
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf'
 import ArticleIcon from '@mui/icons-material/Article'
 import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout'
@@ -28,6 +37,8 @@ const Filter = () => {
   const { handlePdfViwer } = useModals()
   const { data } = hooks.useDataDocumentsItem()
   const { documentItemType, id } = useParams()
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
+  const open = Boolean(anchorEl)
 
   const handleResoreCart = async () => {
     try {
@@ -67,15 +78,19 @@ const Filter = () => {
     }
   }
 
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget)
+  }
+
   return (
     <>
       {loading && <Loader />}
-      <Paper
-        elevation={isMobile ? 1 : 0}
+      <Box
         sx={{
           display: { sm: 'flex', xs: 'block' },
           justifyContent: 'space-between',
-          padding: isMobile ? '12px' : '20px',
+          alignItems: 'center',
+          padding: isMobile ? '12px' : '0 20px',
           margin: isMobile ? '0 16px' : '0px',
         }}
       >
@@ -86,22 +101,26 @@ const Filter = () => {
         )}
 
         <Box sx={{ display: isMobile ? 'block' : 'flex', gap: '10px' }}>
-          <Utils.SearchInput
-            placeholder="חיפוש..."
-            value={searchProducts}
-            setValue={setSearchProducts}
-            sx={{ margin: '10px 0', '& input': { padding: '0px 15px' } }}
-          />
-
           <Box sx={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
             {data && (
               <Button
+                id="basic-button"
                 sx={{ height: '40px' }}
                 variant="outlined"
                 startIcon={<ArticleIcon sx={{ fontSize: '30px' }} />}
                 onClick={() => ExcelGeneratorIDocuments(data)}
               >
                 XL
+              </Button>
+            )}
+            {data && (
+              <Button
+                sx={{ height: '40px' }}
+                variant="outlined"
+                startIcon={<ArticleIcon sx={{ fontSize: '30px' }} />}
+                onClick={handleClick}
+              >
+                PDF
               </Button>
             )}
             <Button
@@ -124,21 +143,38 @@ const Filter = () => {
                 </Button>
               )}
           </Box>
+          <Utils.SearchInput
+            placeholder="חיפוש..."
+            value={searchProducts}
+            setValue={setSearchProducts}
+            sx={{ margin: '10px 0', '& input': { padding: '0px 15px' } }}
+          />
         </Box>
-      </Paper>
-      <Box sx={{ padding: '10px 20px' }}>
-        {data?.files['hydra:member']?.map((file, index) => (
-          <Button
-            key={index}
-            onClick={() => handlePdfViwer(file.base64)}
-            sx={{ height: '40px' }}
-            variant="outlined"
-            startIcon={<PictureAsPdfIcon sx={{ fontSize: '30px' }} />}
-          >
-            {file.name}
-          </Button>
-        ))}
       </Box>
+
+      <Menu
+        id="basic-menu"
+        anchorEl={anchorEl}
+        open={open}
+        onClose={() => setAnchorEl(null)}
+        MenuListProps={{
+          'aria-labelledby': 'basic-button',
+        }}
+      >
+        {data?.files['hydra:member']?.map((file, index) => (
+          <MenuItem
+            onClick={() => {
+              handlePdfViwer(file.base64)
+              setAnchorEl(null)
+            }}
+          >
+            <ListItemIcon>
+              <PictureAsPdfIcon fontSize="small" />
+            </ListItemIcon>
+            <ListItemText>{file.name}</ListItemText>
+          </MenuItem>
+        ))}
+      </Menu>
     </>
   )
 }

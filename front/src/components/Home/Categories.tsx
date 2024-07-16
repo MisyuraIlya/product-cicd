@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { FC, useRef } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css'
 import 'swiper/css/navigation'
@@ -22,7 +22,12 @@ import hooks from '../../hooks'
 import { useNavigate } from 'react-router-dom'
 import { URLS } from '../../enums/urls'
 
-const Categories = () => {
+interface CategoriesProps {
+  toShow: number
+  toShowMobile: number
+}
+
+const Categories: FC<CategoriesProps> = ({ toShow, toShowMobile }) => {
   const { data } = hooks.useDataCategories()
   const swiperRef = useRef(null)
   const navigate = useNavigate()
@@ -36,19 +41,19 @@ const Categories = () => {
     },
     breakpoints: {
       1400: {
-        slidesPerView: 4,
+        slidesPerView: toShow,
         slidesPerColumn: 1,
       },
       1000: {
-        slidesPerView: 4,
+        slidesPerView: toShow,
         slidesPerColumn: 1,
       },
       600: {
-        slidesPerView: 1,
+        slidesPerView: toShowMobile,
         slidesPerColumn: 1,
       },
       0: {
-        slidesPerView: 1,
+        slidesPerView: toShowMobile,
         slidesPerColumn: 1,
       },
     },

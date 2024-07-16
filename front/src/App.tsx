@@ -12,6 +12,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment'
 import { MobileProvider } from './provider/MobileProvider'
 import { OneSignalProvider } from './provider/OneSignalProvider'
+import { AuthProvider } from './provider/AuthProvider'
 
 const cacheRtl = createCache({
   key: 'muirtl',
@@ -24,15 +25,17 @@ function App() {
       <CacheProvider value={cacheRtl}>
         <ThemeProvider theme={theme}>
           <LocalizationProvider dateAdapter={AdapterMoment} adapterLocale="he">
-            <OneSignalProvider>
-              <MobileProvider>
-                <ModalsProvider>
-                  <NotificationsProvider>
-                    <RouterApp />
-                  </NotificationsProvider>
-                </ModalsProvider>
-              </MobileProvider>
-            </OneSignalProvider>
+            <AuthProvider>
+              <OneSignalProvider>
+                <MobileProvider>
+                  <ModalsProvider>
+                    <NotificationsProvider>
+                      <RouterApp />
+                    </NotificationsProvider>
+                  </ModalsProvider>
+                </MobileProvider>
+              </OneSignalProvider>
+            </AuthProvider>
           </LocalizationProvider>
         </ThemeProvider>
       </CacheProvider>

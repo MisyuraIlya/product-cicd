@@ -67,6 +67,7 @@ const SearchInput: FC<SearchInputProps> = ({
   return (
     <Box sx={{ width: '100%', position: 'relative' }}>
       <TextField
+        variant="outlined"
         fullWidth={true}
         placeholder={placeholder}
         sx={{
@@ -75,6 +76,11 @@ const SearchInput: FC<SearchInputProps> = ({
           '& input': { height: '10px', fontWeight: 700 },
           border: 'none',
           ...sx,
+          '& .MuiOutlinedInput-root': {
+            '& fieldset': {
+              border: 'none',
+            },
+          },
         }}
         onChange={(e) => setValue(e.target.value)}
         value={value}

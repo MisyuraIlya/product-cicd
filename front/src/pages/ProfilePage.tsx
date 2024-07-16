@@ -5,7 +5,7 @@ import Utils from '../utils'
 
 const ProfilePage = () => {
   return (
-    <Container maxWidth="lg" sx={{ marginTop: '50px' }}>
+    <Container maxWidth="xl" sx={{ marginTop: '50px' }}>
       <Utils.BreadCrumbsUtil
         array={[
           {

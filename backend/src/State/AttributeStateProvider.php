@@ -21,8 +21,7 @@ class AttributeStateProvider implements ProviderInterface
         private readonly ErpManager $erpManager,
     )
     {
-        $this->isOnlineMigvan = $_ENV['IS_ONLINE_MIGVAN'] === "true";
-        $this->isUsedMigvan = $_ENV['IS_USED_MIGVAN'] === "true";
+        $this->isUsedMigvan = $_ENV['IS_WITH_MIGVAN'] === "true";
     }
 
     public function provide(Operation $operation, array $uriVariables = [], array $context = []): object|array|null
@@ -32,16 +31,9 @@ class AttributeStateProvider implements ProviderInterface
 
             $migvanOnline = [];
             if($this->isUsedMigvan && $userExtId) {
-                if($this->isOnlineMigvan) {
-                    $migvanOnline = $this->erpManager->GetMigvanOnline($userExtId)->migvans;
-                    if(count($migvanOnline) == 0) {
-                        $userExtId = null;
-                    }
-                } else {
-                    $isUserHaveMigvan = $this->userRepository->isUserHaveMigvan($userExtId);
-                    if(!$isUserHaveMigvan){
-                        $userExtId = null;
-                    }
+                $migvanOnline = $this->erpManager->GetMigvanOnline($userExtId)->migvans;
+                if(count($migvanOnline) == 0) {
+                    $userExtId = null;
                 }
             } else {
                 $userExtId = null;

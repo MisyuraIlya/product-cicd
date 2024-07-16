@@ -6,6 +6,7 @@ import PersonIcon from '@mui/icons-material/Person'
 import EmailIcon from '@mui/icons-material/Email'
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone'
 import CreditCardIcon from '@mui/icons-material/CreditCard'
+import { themeColors } from '../../styles/mui'
 
 const Info = () => {
   const { user, logOut } = useAuth()
@@ -17,58 +18,68 @@ const Info = () => {
         <Button
           variant="outlined"
           color="error"
-          sx={{ fontSize: '19px' }}
+          sx={{ fontSize: '14px', height: '36px' }}
           onClick={() => logOut()}
-          startIcon={<LogoutIcon />}
+          startIcon={<LogoutIcon sx={{ width: '16px' }} />}
         >
           התנתק
         </Button>
       </Box>
-      <Paper elevation={4} sx={{ padding: '24px 40px', marginTop: '20px' }}>
+      <Paper sx={{ padding: '24px 40px', marginTop: '20px' }}>
         <Grid container spacing={2}>
           <Grid item sm={2} xs={6}>
             <Box sx={{ display: 'flex', gap: '5px', alignItems: 'center' }}>
-              <PersonIcon />
-              <Typography variant="body1">{'שם'}</Typography>
+              <PersonIcon sx={{ color: themeColors.asphalt }} />
+              <Typography variant="body1" sx={{ color: themeColors.asphalt }}>
+                {'שם'}
+              </Typography>
             </Box>
             <Typography variant="subtitle2" sx={{ pt: '8px' }}>
-              {user?.name}
+              {user?.name ?? '-'}
             </Typography>
           </Grid>
           <Grid item sm={2} xs={6}>
             <Box sx={{ display: 'flex', gap: '5px', alignItems: 'center' }}>
-              <EmailIcon />
-              <Typography variant="body1">{'מייל'}</Typography>
+              <EmailIcon sx={{ color: themeColors.asphalt }} />
+              <Typography variant="body1" sx={{ color: themeColors.asphalt }}>
+                {'מייל'}
+              </Typography>
             </Box>
             <Typography variant="subtitle2" sx={{ pt: '8px' }}>
-              {user?.email}
+              {user?.email ?? '-'}
             </Typography>
           </Grid>
           <Grid item sm={2} xs={6}>
             <Box sx={{ display: 'flex', gap: '5px', alignItems: 'center' }}>
-              <LocalPhoneIcon />
-              <Typography variant="body1">{'טלפון'}</Typography>
+              <LocalPhoneIcon sx={{ color: themeColors.asphalt }} />
+              <Typography variant="body1" sx={{ color: themeColors.asphalt }}>
+                {'טלפון'}
+              </Typography>
             </Box>
             <Typography variant="subtitle2" sx={{ pt: '8px' }}>
-              {user?.phone}
+              {user?.phone ?? '-'}
             </Typography>
           </Grid>
           <Grid item sm={2} xs={6}>
             <Box sx={{ display: 'flex', gap: '5px', alignItems: 'center' }}>
-              <CreditCardIcon />
-              <Typography variant="body1">{'אובליגו'}</Typography>
+              <CreditCardIcon sx={{ color: themeColors.asphalt }} />
+              <Typography variant="body1" sx={{ color: themeColors.asphalt }}>
+                {'אובליגו'}
+              </Typography>
             </Box>
             <Typography variant="subtitle2" sx={{ pt: '8px' }}>
-              {user?.maxCredit}
+              {user?.maxCredit ?? '-'}
             </Typography>
           </Grid>
           <Grid item sm={2} xs={6}>
             <Box sx={{ display: 'flex', gap: '5px', alignItems: 'center' }}>
-              <CreditCardIcon />
-              <Typography variant="body1">{'יתרת חוב'}</Typography>
+              <CreditCardIcon sx={{ color: themeColors.asphalt }} />
+              <Typography variant="body1" sx={{ color: themeColors.asphalt }}>
+                {'יתרת חוב'}
+              </Typography>
             </Box>
             <Typography variant="subtitle2" sx={{ pt: '8px' }}>
-              {user?.maxCredit}
+              {user?.maxCredit ?? '-'}
             </Typography>
           </Grid>
         </Grid>

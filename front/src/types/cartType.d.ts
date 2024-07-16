@@ -26,3 +26,10 @@ interface ICartCheck {
 interface CartCheckResponse extends ApiResponse {
   data: ICartCheck
 }
+
+interface SendOrderResponse extends ApiResponse {
+  data: {
+    historyId: number
+    orderNumber: string | null
+  }
+}

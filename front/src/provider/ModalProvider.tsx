@@ -8,6 +8,7 @@ import React, {
 } from 'react'
 import { useSelectedProduct } from '../store/selecterdProduct.store'
 import Modals from '../components/Modals'
+import PayPopUp from '../components/Modals/PayPopUp'
 // Defines
 interface ModalContextType {
   selectProduct: (product: IProduct) => void
@@ -108,9 +109,9 @@ const ModalsProvider: FC<ModalsProviderProps> = ({ children }) => {
         active={activePurchase}
         setActive={setActivePurchase}
       />
-      {/* {openPopUpPay && (
+      {openPopUpPay && (
         <PayPopUp active={openPopUpPay} setActive={setOpenPopUpPay} />
-      )} */}
+      )}
 
       <Modals.PdfViwer
         active={pdfViwer}

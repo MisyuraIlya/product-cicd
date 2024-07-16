@@ -50,10 +50,18 @@ class GetProducts
                             $product->setTitle($itemRec->title);
                             $product->setPackQuantity($itemRec->packQuantity);
                             $product->setBasePrice($itemRec->baseprice);
+                            $product->setMinimumPrice($itemRec->minimumPrice);
                             $product->setUpdatedAt(new \DateTimeImmutable());
                             $product->setIsPublished($itemRec->status);
                             $product->setIsNew(false);
                             $product->setIsSpecial(false);
+                            $product->setLength($itemRec->Extra2);
+                            $product->setWidth($itemRec->Extra3);
+                            $product->setHeight($itemRec->Extra4);
+                            $product->setColor($itemRec->Extra5);
+                            $product->setVolume($itemRec->Extra6);
+                            $product->setDiameter($itemRec->Extra7);
+                            $product->setWeight($itemRec->Extra8);
                             $this->productRepository->createProduct($product, true);
                         } catch (\Exception $e) {
                             dd($itemRec);

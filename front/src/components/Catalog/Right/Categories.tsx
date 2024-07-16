@@ -11,11 +11,6 @@ const Categories = () => {
       sx={{ width: '100%', maxWidth: 460, bgcolor: 'background.paper' }}
       component="nav"
       aria-labelledby="nested-list-subheader"
-      subheader={
-        <ListSubheader component="div" id="nested-list-subheader">
-          קטגוריות
-        </ListSubheader>
-      }
     >
       {data?.['hydra:member']?.map((lvl1, index) => (
         <Box key={index}>
